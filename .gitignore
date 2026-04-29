@@ -1,2 +1,3 @@
-src/db/*.db
-src/db/dal.py
+__pycache__/
+*.pyc
+*.db
