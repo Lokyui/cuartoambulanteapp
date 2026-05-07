@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sqlite3
+import calendar
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
@@ -38,6 +39,7 @@ class DAL:
         sql = path.read_text(encoding="utf-8")
         with self.conexion() as conn:
             conn.executescript(sql)
+            self._aplicar_migraciones(conn)
 
     @staticmethod
     def _fila(row: sqlite3.Row | None) -> dict[str, Any] | None:
@@ -46,6 +48,19 @@ class DAL:
     @staticmethod
     def _filas(rows: list[sqlite3.Row]) -> list[dict[str, Any]]:
         return [dict(row) for row in rows]
+
+    @staticmethod
+    def _columnas_tabla(conn: sqlite3.Connection, tabla: str) -> set[str]:
+        rows = conn.execute(f"PRAGMA table_info({tabla})").fetchall()
+        return {str(row["name"]) for row in rows}
+
+    def _aplicar_migraciones(self, conn: sqlite3.Connection) -> None:
+        columnas_caja = self._columnas_tabla(conn, "caja_diaria")
+        if "comentario" not in columnas_caja:
+            conn.execute(
+                "ALTER TABLE caja_diaria "
+                "ADD COLUMN comentario TEXT CHECK (LENGTH(comentario) <= 200)"
+            )
 
     def crear_pyme(self, nombre: str, activa: int = 1) -> int:
         with self.conexion() as conn:
@@ -194,7 +209,51 @@ class DAL:
 
         with self.conexion() as conn:
             rows = conn.execute(sql, params).fetchall()
+            return self._filas(rows)            
+
+    def reporte_mensual(self, anio: int, mes: int) -> list[dict[str, Any]]:
+        """
+        Devuelve una fila por pyme con los totales del mes indicado.
+        Solo incluye pymes que tuvieron al menos una venta en el período.
+        Resultado ordenado por total_bruto DESC.
+        """
+        # Construir rango de fechas del mes
+        import calendar
+        ultimo_dia = calendar.monthrange(anio, mes)[1]
+        fecha_desde = f"{anio}-{mes:02d}-01"
+        fecha_hasta = f"{anio}-{mes:02d}-{ultimo_dia:02d}"
+ 
+        sql = """
+            SELECT
+                p.nombre,
+                COALESCE(SUM(CASE WHEN v.metodo = 'efectivo' THEN v.total ELSE 0 END), 0)
+                    AS efectivo,
+                COALESCE(SUM(CASE WHEN v.metodo = 'sumup'    THEN v.total ELSE 0 END), 0)
+                    AS sumup,
+                COALESCE(SUM(v.total), 0)
+                    AS total_bruto,
+                COALESCE(SUM(v.iva), 0)
+                    AS iva,
+                COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
+                    AS comision_sumup,
+                COALESCE(SUM(v.total), 0)
+                    - COALESCE(SUM(v.iva), 0)
+                    - COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
+                    AS neto,
+                COUNT(v.id)
+                    AS n_ventas
+            FROM pymes p
+            INNER JOIN ventas v
+                ON v.pyme_id = p.id
+               AND v.fecha BETWEEN ? AND ?
+            GROUP BY p.id, p.nombre
+            ORDER BY total_bruto DESC
+        """
+        with self.conexion() as conn:
+            rows = conn.execute(sql, (fecha_desde, fecha_hasta)).fetchall()
             return self._filas(rows)
+ 
+
 
     def actualizar_venta(self, venta_id: int, datos: dict[str, Any]) -> bool:
         permitidos = {
@@ -227,6 +286,68 @@ class DAL:
             cur = conn.execute("DELETE FROM ventas WHERE id = ?", (venta_id,))
             return cur.rowcount > 0
 
+    def crear_venta_item(
+        self,
+        venta_id: int,
+        producto: str,
+        precio: int,
+        cantidad: int,
+        subtotal: int | None = None,
+    ) -> int:
+        subtotal_calc = subtotal if subtotal is not None else precio * cantidad
+        with self.conexion() as conn:
+            cur = conn.execute(
+                """
+                INSERT INTO venta_items
+                (venta_id, producto, precio, cantidad, subtotal)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (venta_id, producto, precio, cantidad, subtotal_calc),
+            )
+            return int(cur.lastrowid)
+
+    def obtener_venta_item(self, item_id: int) -> dict[str, Any] | None:
+        with self.conexion() as conn:
+            row = conn.execute(
+                "SELECT * FROM venta_items WHERE id = ?",
+                (item_id,),
+            ).fetchone()
+            return self._fila(row)
+
+    def listar_venta_items(self, venta_id: int) -> list[dict[str, Any]]:
+        with self.conexion() as conn:
+            rows = conn.execute(
+                "SELECT * FROM venta_items WHERE venta_id = ? ORDER BY id ASC",
+                (venta_id,),
+            ).fetchall()
+            return self._filas(rows)
+
+    def actualizar_venta_item(self, item_id: int, datos: dict[str, Any]) -> bool:
+        permitidos = {"producto", "precio", "cantidad", "subtotal"}
+        cambios = {k: v for k, v in datos.items() if k in permitidos}
+        if not cambios:
+            return False
+
+        if "subtotal" not in cambios and ("precio" in cambios or "cantidad" in cambios):
+            actual = self.obtener_venta_item(item_id)
+            if actual is None:
+                return False
+            precio = int(cambios.get("precio", actual["precio"]))
+            cantidad = int(cambios.get("cantidad", actual["cantidad"]))
+            cambios["subtotal"] = precio * cantidad
+
+        set_sql = ", ".join(f"{col} = ?" for col in cambios)
+        params = [*cambios.values(), item_id]
+
+        with self.conexion() as conn:
+            cur = conn.execute(f"UPDATE venta_items SET {set_sql} WHERE id = ?", params)
+            return cur.rowcount > 0
+
+    def eliminar_venta_item(self, item_id: int) -> bool:
+        with self.conexion() as conn:
+            cur = conn.execute("DELETE FROM venta_items WHERE id = ?", (item_id,))
+            return cur.rowcount > 0
+
     def crear_caja_diaria(
         self,
         fecha: str | date,
@@ -239,6 +360,7 @@ class DAL:
         caja_final_real: int | None = None,
         diferencia: int = 0,
         cerrada: int = 0,
+        comentario: str | None = None,
     ) -> int:
         with self.conexion() as conn:
             cur = conn.execute(
@@ -246,9 +368,9 @@ class DAL:
                 INSERT INTO caja_diaria
                 (
                     fecha, caja_inicial, total_efectivo, total_sumup, total_iva,
-                    comision_sumup_total, caja_final_esperada, caja_final_real, diferencia, cerrada
+                    comision_sumup_total, caja_final_esperada, caja_final_real, diferencia, cerrada, comentario
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     _to_fecha(fecha),
@@ -261,6 +383,7 @@ class DAL:
                     caja_final_real,
                     diferencia,
                     cerrada,
+                    comentario,
                 ),
             )
             return int(cur.lastrowid)
@@ -289,6 +412,7 @@ class DAL:
             "caja_final_real",
             "diferencia",
             "cerrada",
+            "comentario",
         }
         cambios = {k: v for k, v in datos.items() if k in permitidos}
         if not cambios:
@@ -414,3 +538,113 @@ class DAL:
         with self.conexion() as conn:
             cur = conn.execute("DELETE FROM paquetes WHERE id = ?", (paquete_id,))
             return cur.rowcount > 0
+
+    def crear_historico_legacy(
+        self,
+        fuente: str,
+        payload: str,
+        motivo: str | None = None,
+        creado_en: str | None = None,
+    ) -> int:
+        with self.conexion() as conn:
+            if creado_en is None:
+                cur = conn.execute(
+                    """
+                    INSERT INTO historico_legacy (fuente, payload, motivo)
+                    VALUES (?, ?, ?)
+                    """,
+                    (fuente, payload, motivo),
+                )
+            else:
+                cur = conn.execute(
+                    """
+                    INSERT INTO historico_legacy (fuente, payload, motivo, creado_en)
+                    VALUES (?, ?, ?, ?)
+                    """,
+                    (fuente, payload, motivo, creado_en),
+                )
+            return int(cur.lastrowid)
+
+    def obtener_historico_legacy(self, historico_id: int) -> dict[str, Any] | None:
+        with self.conexion() as conn:
+            row = conn.execute(
+                "SELECT * FROM historico_legacy WHERE id = ?",
+                (historico_id,),
+            ).fetchone()
+            return self._fila(row)
+
+    def listar_historico_legacy(
+        self,
+        limite: int = 100,
+        fuente: str | None = None,
+    ) -> list[dict[str, Any]]:
+        sql = "SELECT * FROM historico_legacy"
+        params: list[Any] = []
+        if fuente is not None:
+            sql += " WHERE fuente = ?"
+            params.append(fuente)
+        sql += " ORDER BY creado_en DESC, id DESC LIMIT ?"
+        params.append(int(limite))
+
+        with self.conexion() as conn:
+            rows = conn.execute(sql, params).fetchall()
+            return self._filas(rows)
+
+    def eliminar_historico_legacy(self, historico_id: int) -> bool:
+        with self.conexion() as conn:
+            cur = conn.execute("DELETE FROM historico_legacy WHERE id = ?", (historico_id,))
+            return cur.rowcount > 0
+           
+           
+ 
+    # ──────────────────────────────────────────────────────────────────────────
+    # Reportes
+    # ──────────────────────────────────────────────────────────────────────────
+ 
+    def reporte_mensual(self, anio: int, mes: int) -> list[dict[str, Any]]:
+        """
+        Devuelve una fila por pyme con los totales agregados del mes indicado.
+ 
+        Cada dict contiene:
+            nombre          str   — nombre de la pyme
+            efectivo        int   — suma de ventas en efectivo
+            sumup           int   — suma de ventas con SumUp
+            total_bruto     int   — efectivo + sumup
+            iva             int   — suma de IVA del período
+            comision_sumup  int   — suma de comisiones SumUp (0 si no aplica)
+            neto            int   — total_bruto - iva - comision_sumup
+            n_ventas        int   — cantidad de registros de ventas
+ 
+        Solo incluye pymes con al menos una venta en el período.
+        Resultado ordenado por total_bruto DESC.
+        """
+        ultimo_dia = calendar.monthrange(anio, mes)[1]
+        fecha_desde = f"{anio}-{mes:02d}-01"
+        fecha_hasta = f"{anio}-{mes:02d}-{ultimo_dia:02d}"
+ 
+        sql = """
+            SELECT
+                p.nombre,
+                COALESCE(SUM(CASE WHEN v.metodo = 'efectivo'
+                                  THEN v.total ELSE 0 END), 0)   AS efectivo,
+                COALESCE(SUM(CASE WHEN v.metodo = 'sumup'
+                                  THEN v.total ELSE 0 END), 0)   AS sumup,
+                COALESCE(SUM(v.total), 0)                        AS total_bruto,
+                COALESCE(SUM(v.iva), 0)                          AS iva,
+                COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)  AS comision_sumup,
+                COALESCE(SUM(v.total), 0)
+                    - COALESCE(SUM(v.iva), 0)
+                    - COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
+                                                                 AS neto,
+                COUNT(v.id)                                      AS n_ventas
+            FROM pymes p
+            INNER JOIN ventas v
+                ON  v.pyme_id = p.id
+                AND v.fecha BETWEEN ? AND ?
+            GROUP BY p.id, p.nombre
+            ORDER BY total_bruto DESC
+        """
+        with self.conexion() as conn:
+            rows = conn.execute(sql, (fecha_desde, fecha_hasta)).fetchall()
+            return self._filas(rows)
+

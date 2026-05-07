@@ -25,9 +25,10 @@ INSERT INTO personal (nombre_display, rol, activo) VALUES
 -- Ventas (cabecera)
 -- IVA: precio al público incluye IVA. iva = int(total / 1.19 * 0.19). 2000 -> 319.
 -- Comisión SumUp: int(total * 0.0175). 2000 -> 35.
-INSERT INTO ventas (fecha, pyme_id, metodo, boleta_sumup, iva, comision_sumup, total, comentario) VALUES
-('2026-04-27', 1, 'efectivo', NULL, 319, NULL, 2000, 'Venta demo'),
-('2026-04-27', 2, 'sumup', 'SUMUP-001', 319, 35, 2000, 'Venta demo');
+-- Ventas (cabecera)
+INSERT INTO ventas (fecha, pyme_id, articulo, valor, cantidad, metodo, iva, comision_sumup, total, comentario) VALUES
+('2026-04-27', 1, 'Producto A', 2000, 1, 'efectivo', 319, NULL, 2000, 'Venta demo'),
+('2026-04-27', 2, 'Producto B', 1000, 2, 'sumup', 319, 35, 2000, 'Venta demo');
 
 -- Items de ventas
 INSERT INTO venta_items (venta_id, producto, precio, cantidad, subtotal) VALUES
