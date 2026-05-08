@@ -202,7 +202,7 @@ QPushButton:hover {
         <string>Añadir venta</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="btnCierre">
        <property name="geometry">
         <rect>
          <x>60</x>
@@ -228,7 +228,7 @@ QPushButton:hover {
         <string>Cierre de caja</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="btnRetiros">
        <property name="geometry">
         <rect>
          <x>60</x>
