@@ -12,6 +12,7 @@ La aplicación sigue un patrón de diseño modular basado en capas para asegurar
 ## Estructura Completa del Repositorio
 A continuación se detalla la organización de archivos prevista para el cierre del proyecto:
 
+```
 PROYECTO_CUARTO_AMBULANTE/
 ├── db/
 │   ├── dal.py                 # Lógica de persistencia y consultas SQL
@@ -35,6 +36,7 @@ PROYECTO_CUARTO_AMBULANTE/
 │       └── validators.py      # Lógica de validación de RUT y campos
 ├── main.py                    # Punto de entrada de la aplicación
 └── requirements.txt           # Dependencias del proyecto
+``` 
 
 ## Requisitos e Instalación
 El sistema está optimizado para funcionar en entornos Linux (Ubuntu). 
