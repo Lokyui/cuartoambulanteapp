@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sqlite3
+import calendar
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
@@ -208,7 +209,51 @@ class DAL:
 
         with self.conexion() as conn:
             rows = conn.execute(sql, params).fetchall()
+            return self._filas(rows)            
+
+    def reporte_mensual(self, anio: int, mes: int) -> list[dict[str, Any]]:
+        """
+        Devuelve una fila por pyme con los totales del mes indicado.
+        Solo incluye pymes que tuvieron al menos una venta en el período.
+        Resultado ordenado por total_bruto DESC.
+        """
+        # Construir rango de fechas del mes
+        import calendar
+        ultimo_dia = calendar.monthrange(anio, mes)[1]
+        fecha_desde = f"{anio}-{mes:02d}-01"
+        fecha_hasta = f"{anio}-{mes:02d}-{ultimo_dia:02d}"
+ 
+        sql = """
+            SELECT
+                p.nombre,
+                COALESCE(SUM(CASE WHEN v.metodo = 'efectivo' THEN v.total ELSE 0 END), 0)
+                    AS efectivo,
+                COALESCE(SUM(CASE WHEN v.metodo = 'sumup'    THEN v.total ELSE 0 END), 0)
+                    AS sumup,
+                COALESCE(SUM(v.total), 0)
+                    AS total_bruto,
+                COALESCE(SUM(v.iva), 0)
+                    AS iva,
+                COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
+                    AS comision_sumup,
+                COALESCE(SUM(v.total), 0)
+                    - COALESCE(SUM(v.iva), 0)
+                    - COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
+                    AS neto,
+                COUNT(v.id)
+                    AS n_ventas
+            FROM pymes p
+            INNER JOIN ventas v
+                ON v.pyme_id = p.id
+               AND v.fecha BETWEEN ? AND ?
+            GROUP BY p.id, p.nombre
+            ORDER BY total_bruto DESC
+        """
+        with self.conexion() as conn:
+            rows = conn.execute(sql, (fecha_desde, fecha_hasta)).fetchall()
             return self._filas(rows)
+ 
+
 
     def actualizar_venta(self, venta_id: int, datos: dict[str, Any]) -> bool:
         permitidos = {
@@ -549,3 +594,57 @@ class DAL:
         with self.conexion() as conn:
             cur = conn.execute("DELETE FROM historico_legacy WHERE id = ?", (historico_id,))
             return cur.rowcount > 0
+           
+           
+ 
+    # ──────────────────────────────────────────────────────────────────────────
+    # Reportes
+    # ──────────────────────────────────────────────────────────────────────────
+ 
+    def reporte_mensual(self, anio: int, mes: int) -> list[dict[str, Any]]:
+        """
+        Devuelve una fila por pyme con los totales agregados del mes indicado.
+ 
+        Cada dict contiene:
+            nombre          str   — nombre de la pyme
+            efectivo        int   — suma de ventas en efectivo
+            sumup           int   — suma de ventas con SumUp
+            total_bruto     int   — efectivo + sumup
+            iva             int   — suma de IVA del período
+            comision_sumup  int   — suma de comisiones SumUp (0 si no aplica)
+            neto            int   — total_bruto - iva - comision_sumup
+            n_ventas        int   — cantidad de registros de ventas
+ 
+        Solo incluye pymes con al menos una venta en el período.
+        Resultado ordenado por total_bruto DESC.
+        """
+        ultimo_dia = calendar.monthrange(anio, mes)[1]
+        fecha_desde = f"{anio}-{mes:02d}-01"
+        fecha_hasta = f"{anio}-{mes:02d}-{ultimo_dia:02d}"
+ 
+        sql = """
+            SELECT
+                p.nombre,
+                COALESCE(SUM(CASE WHEN v.metodo = 'efectivo'
+                                  THEN v.total ELSE 0 END), 0)   AS efectivo,
+                COALESCE(SUM(CASE WHEN v.metodo = 'sumup'
+                                  THEN v.total ELSE 0 END), 0)   AS sumup,
+                COALESCE(SUM(v.total), 0)                        AS total_bruto,
+                COALESCE(SUM(v.iva), 0)                          AS iva,
+                COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)  AS comision_sumup,
+                COALESCE(SUM(v.total), 0)
+                    - COALESCE(SUM(v.iva), 0)
+                    - COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
+                                                                 AS neto,
+                COUNT(v.id)                                      AS n_ventas
+            FROM pymes p
+            INNER JOIN ventas v
+                ON  v.pyme_id = p.id
+                AND v.fecha BETWEEN ? AND ?
+            GROUP BY p.id, p.nombre
+            ORDER BY total_bruto DESC
+        """
+        with self.conexion() as conn:
+            rows = conn.execute(sql, (fecha_desde, fecha_hasta)).fetchall()
+            return self._filas(rows)
+

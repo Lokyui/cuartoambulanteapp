@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="/icons">
+    <file alias="search_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg">search_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</file>
+    <file alias="add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg">add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</file>
+    <file alias="delete_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg">delete_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</file>
+    <file alias="home_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg">home_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file alias="post_add_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg">post_add_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file alias="article_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg">article_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file alias="local_shipping_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg">local_shipping_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file alias="analytics_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg">analytics_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file alias="chart_data_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg">chart_data_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file alias="logo2.png">logo2.png</file>
+  </qresource>
+</RCC>
