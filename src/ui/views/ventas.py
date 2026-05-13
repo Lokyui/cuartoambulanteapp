@@ -5,6 +5,7 @@ from datetime import date
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog, QMessageBox
 from db.dal import DAL
+from src.modules.ventas_module import VentasModule
 
 UI_PATH = "src/ui/views/ventas.ui"
 
@@ -15,9 +16,9 @@ MESES_ES = [
 ]
 
 class VentasView(QDialog):
-    def __init__(self, dal: DAL, parent=None) -> None:
-        super().__init__(parent)
-        self.dal = dal
+    def __init__(self, module: VentasModule) -> None:
+        super().__init__()
+        self.module = module
         uic.loadUi(UI_PATH, self)
 
         hoy = date.today()
@@ -28,8 +29,8 @@ class VentasView(QDialog):
         mes = MESES_ES[hoy.month]
         fecha_texto = f"{dia_semana} {hoy.day} de {mes}, {hoy.year}"
         
-        if hasattr(self, 'label_fecha'): 
-            self.label_fecha.setText(fecha_texto)
+        if hasattr(self, 'label_2'): 
+            self.label_2.setText(fecha_texto)
 
         self._poblar_pymes()
         self.pushButton_5.clicked.connect(self._guardar_venta)
@@ -37,7 +38,7 @@ class VentasView(QDialog):
 
     def _poblar_pymes(self) -> None:
         self.comboBox.clear()
-        self.pymes = self.dal.listar_pymes()
+        self.pymes = self.module.dal.listar_pymes()
         for p in self.pymes:
             self.comboBox.addItem(p["nombre"], p["id"])
 
@@ -48,25 +49,23 @@ class VentasView(QDialog):
         fecha = self.dateEdit.date().toPyDate()
         metodo = "sumup" if self.radioButton_2.isChecked() else "efectivo"
 
-        if not pyme_id:
-            return QMessageBox.warning(self, "Error", "Debe seleccionar una Pyme.")
-        
-        #crearfunción en el módulo de ventas
-        # calculos = procesar_datos_venta(valor, cantidad, metodo)
-        
-"""         try:
-            self.dal.crear_venta(
-                fecha=fecha,
-                pyme_id=pyme_id,
-                articulo="Venta general",
-                valor=valor,
-                cantidad=1,
-                metodo=metodo,
-                iva=iva,
-                total=monto_total,
-                comentario=self.textEdit_3.toPlainText()
-            )
+        datos = {
+            "pyme_id": pyme_id,
+            "articulo": self.textEdit.toPlainText() if hasattr(self, 'textEdit') else "Venta general",
+            "valor": valor,
+            "cantidad": cantidad,
+            "fecha": self.dateEdit.date().toPyDate(),
+            "metodo": "sumup" if self.radioButton_2.isChecked() else "efectivo",
+            "comentario": self.textEdit_3.toPlainText() if hasattr(self, 'textEdit_3') else ""
+        }
+
+        try:
+            self.module.procesar_nueva_venta(datos)
             QMessageBox.information(self, "Éxito", "Venta registrada correctamente.")
             self.accept()
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"No se pudo guardar: {e}") """
+            QMessageBox.critical(self, "Error", f"No se pudo guardar: {e}")
+
+        if not pyme_id:
+            return QMessageBox.warning(self, "Error", "Debe seleccionar una Pyme.")
+        

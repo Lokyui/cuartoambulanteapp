@@ -20,7 +20,7 @@
       <property name="minimumSize">
        <size>
         <width>290</width>
-        <height>910</height>
+        <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
@@ -254,7 +254,7 @@ QPushButton:hover {
         <string>Retiros</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="btnPymes">
        <property name="geometry">
         <rect>
          <x>60</x>

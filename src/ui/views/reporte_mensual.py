@@ -21,6 +21,7 @@ from PyQt5.QtWidgets import (
 )
  
 from db.dal import DAL
+from src.modules.reportes_module import ReportesModule
  
 # Ruta al archivo .ui relativa a este módulo
 UI_PATH = "src/ui/views/reporte_mensual.ui"
@@ -47,18 +48,9 @@ COLOR_FILA_TOTALES = QColor("#D6EAF8")
  
  
 class ReporteMensualView(QDialog):
-    """
-    Diálogo de reporte mensual.
- 
-    Uso:
-        dal = DAL()
-        vista = ReporteMensualView(dal, parent=main_window)
-        vista.exec()
-    """
- 
-    def __init__(self, dal: DAL, parent=None) -> None:
+    def __init__(self, module: ReportesModule, parent=None) -> None:
         super().__init__(parent)
-        self.dal = dal
+        self.module = module
         uic.loadUi(UI_PATH, self)
  
         self._configurar_tabla()
@@ -76,7 +68,6 @@ class ReporteMensualView(QDialog):
     # ─────────────────────────────────────────────
  
     def _configurar_tabla(self) -> None:
-        """Ajusta comportamiento de la QTableWidget."""
         tw = self.tableWidget
         tw.setEditTriggers(tw.EditTrigger.NoEditTriggers)
         tw.setSelectionBehavior(tw.SelectionBehavior.SelectRows)
@@ -91,7 +82,6 @@ class ReporteMensualView(QDialog):
         tw.setSortingEnabled(True)
  
     def _poblar_combos(self) -> None:
-        """Rellena los ComboBox de mes y año."""
         self.comboBox.clear()
         self.comboBox.addItems(MESES)
  
@@ -112,15 +102,11 @@ class ReporteMensualView(QDialog):
     # ─────────────────────────────────────────────
  
     def _cargar_reporte(self) -> None:
-        """
-        Obtiene los datos del período seleccionado y actualiza
-        las tarjetas de resumen y la tabla.
-        """
         mes  = self.comboBox.currentIndex() + 1   # 1–12
         anio = int(self.comboBox_2.currentText())
  
         try:
-            filas = self.dal.reporte_mensual(anio, mes)
+            filas = self.module.generar_totales_mensuales(anio, mes)
         except Exception as exc:
             QMessageBox.critical(
                 self,

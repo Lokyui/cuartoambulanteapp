@@ -5,10 +5,14 @@ from datetime import date
 from typing import Any
 
 from PyQt5 import uic
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QDialog, QHeaderView, QTableWidgetItem, QWidget
 
 from db.dal import DAL
+from src.modules.reportes_module import ReportesModule
+from src.modules.ventas_module import VentasModule
+from src.modules.retiros_module import RetirosModule
+from src.modules.caja_module import CajaModule
 
 UI_PATH = "src/ui/views/dashboard.ui"
  
@@ -19,13 +23,23 @@ MESES_ES = [
 ]
 
 class DashboardView(QWidget):
-    def __init__(self, dal: DAL, parent=None) -> None:
+    #señales para cambiar de vista con botones registrar venta y nuevo paquete
+    solicitar_vista_ventas = pyqtSignal()
+    solicitar_vista_retiros = pyqtSignal()
+
+    def __init__(self, ventas_mod: VentasModule, retiros_mod: RetirosModule, caja_module: CajaModule, parent=None) -> None:
         super().__init__(parent)
-        self.dal = dal
+        self.ventas_mod = ventas_mod
+        self.retiros_mod = retiros_mod
+        self.caja_module = caja_module
         uic.loadUi(UI_PATH, self)
 
         self._configurar_tablas()
         self._cargar_datos_dia()
+
+        #conectar los botones ui a las señales
+        self.pushButton_9.clicked.connect(self.solicitar_vista_ventas.emit)
+        self.pushButton.clicked.connect(self.solicitar_vista_retiros.emit)
 
     def _configurar_tablas(self) -> None:
         # Tabla de ventas recientes
@@ -47,7 +61,7 @@ class DashboardView(QWidget):
         self.plainTextEdit_10.setPlainText(fecha_formateada)
 
         # Obtener ventas del día
-        ventas = self.dal.listar_ventas(fecha=hoy)
+        ventas = self.ventas_mod.dal.listar_ventas(fecha=hoy)
         
         # 1. Calcular resumen para tarjetas
         total_diario = sum(v["total"] for v in ventas)

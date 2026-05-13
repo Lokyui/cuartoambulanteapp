@@ -15,6 +15,12 @@ from db.dal import DAL  # noqa: E402  (import después del path-hack)
 from ui.views.main_window import MainWindow
 from ui.views.ventas import VentasView
 from ui.views.reporte_mensual import ReporteMensualView
+from ui.views.resumen_caja import ResumenCajaView
+from ui.views.reporte_pyme import ReportePymeView
+from modules.ventas_module import VentasModule
+from modules.retiros_module import RetirosModule
+from modules.reportes_module import ReportesModule
+from modules.caja_module import CajaModule
 
 # ── Rutas ────────────────────────────────────────────────────────────────────
 DB_PATH     = SRC / "db" / "cuarto_ambulante.db"
@@ -46,17 +52,27 @@ def preparar_base_de_datos(dal: DAL) -> None:
 
 def main() -> None:
     app = QApplication(sys.argv)
-
-    # Crear e inicializar el DAL apuntando a la BD de src/db/
     dal = DAL(db_path=DB_PATH)
     preparar_base_de_datos(dal)
 
-    ventana = MainWindow(dal)
-    ventana.setWindowTitle("Dashboard — Cuarto Ambulante [PRUEBA]")
-    ventana.show()
+    # 1. Instanciar los módulos de lógica
+    ventas_mod = VentasModule(dal)
+    retiros_mod = RetirosModule(dal)
+    reportes_mod = ReportesModule(dal)
+    caja_mod = CajaModule(dal)
 
-    sys.exit(app.exec())
+    # 2. Pasar los módulos a las vistas (en lugar del dal)
+    # Ejemplo con MainWindow (puedes pasarle todos o solo los necesarios)
+    ventana = MainWindow(
+        ventas_mod=ventas_mod,
+        retiros_mod=retiros_mod,
+        reportesModule=reportes_mod,
+        caja_module=caja_mod
+    )
+    ventana.show()
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
     main()
+    

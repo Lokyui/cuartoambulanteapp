@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>940</width>
-    <height>1035</height>
+    <width>985</width>
+    <height>833</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,6 +45,18 @@ QFrame[objectName^=&quot;framePedido&quot;] {
        </property>
        <item>
         <widget class="QLabel" name="label_10">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>50</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <family>Noto Sans CJK TC</family>
@@ -58,6 +70,12 @@ QFrame[objectName^=&quot;framePedido&quot;] {
        </item>
        <item>
         <widget class="QPlainTextEdit" name="plainTextEdit_10">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -91,7 +109,7 @@ QFrame[objectName^=&quot;framePedido&quot;] {
        <property name="bottomMargin">
         <number>40</number>
        </property>
-       <item>
+       <item alignment="Qt::AlignHCenter">
         <widget class="QPushButton" name="pushButton">
          <property name="minimumSize">
           <size>
@@ -106,7 +124,17 @@ QFrame[objectName^=&quot;framePedido&quot;] {
 text-align: right;</string>
          </property>
          <property name="text">
-          <string>    Nuevo paquete  </string>
+          <string>Nuevo paquete  </string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../assets/icons/icons.qrc">
+           <normaloff>:/icons/add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</normaloff>:/icons/add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -143,7 +171,7 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item>
+     <item alignment="Qt::AlignLeft">
       <widget class="QPushButton" name="pushButton_2">
        <property name="minimumSize">
         <size>
@@ -167,8 +195,14 @@ p, li { white-space: pre-wrap; }
        </property>
       </widget>
      </item>
-     <item>
+     <item alignment="Qt::AlignLeft">
       <widget class="QPushButton" name="pushButton_3">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
          <width>150</width>
@@ -203,6 +237,12 @@ p, li { white-space: pre-wrap; }
          <height>40</height>
         </size>
        </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>50</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>Noto Sans CJK TC</family>
@@ -228,8 +268,19 @@ p, li { white-space: pre-wrap; }
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>800</height>
+       <height>100</height>
       </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#scrollArea {
+border:transparent;
+}</string>
      </property>
      <property name="widgetResizable">
       <bool>true</bool>
@@ -239,7 +290,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>864</width>
+        <width>911</width>
         <height>800</height>
        </rect>
       </property>
@@ -1052,6 +1103,8 @@ background-color: #EFEFEF;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../assets/icons/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

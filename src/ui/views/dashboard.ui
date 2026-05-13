@@ -107,6 +107,16 @@ text-align: right;</string>
          <property name="text">
           <string>Registrar venta  </string>
          </property>
+         <property name="icon">
+          <iconset resource="../../../assets/icons/icons.qrc">
+           <normaloff>:/icons/add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</normaloff>:/icons/add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
         </widget>
        </item>
        <item>
@@ -124,7 +134,17 @@ text-align: right;</string>
 text-align: right;</string>
          </property>
          <property name="text">
-          <string>    Nuevo paquete  </string>
+          <string>Nuevo paquete  </string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../assets/icons/icons.qrc">
+           <normaloff>:/icons/add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</normaloff>:/icons/add_circle_16dp_1F1F1F_FILL0_wght400_GRAD0_opsz20.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
          </property>
         </widget>
        </item>

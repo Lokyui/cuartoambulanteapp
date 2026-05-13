@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>958</width>
-    <height>887</height>
+    <width>975</width>
+    <height>918</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: white;</string>
+   <string notr="true">background-color:white;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -33,9 +33,12 @@
     <number>10</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
      <item>
-      <widget class="QLabel" name="label_13">
+      <widget class="QLabel" name="label_11">
        <property name="maximumSize">
         <size>
          <width>16777215</width>
@@ -49,199 +52,77 @@
         </font>
        </property>
        <property name="text">
-        <string>Reporte mensual</string>
+        <string>Reporte por tienda/pyme</string>
        </property>
       </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <property name="rightMargin">
-        <number>500</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label_7">
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Mes:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox">
-         <item>
-          <property name="text">
-           <string>Abril</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Año:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="comboBox_2">
-         <item>
-          <property name="text">
-           <string>2026</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QGroupBox" name="groupBox_10">
+      <widget class="QLabel" name="label_7">
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
-         <height>150</height>
+         <width>70</width>
+         <height>16777215</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #EDC9B3;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="text">
+        <string>Tienda:</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-         <widget class="QLabel" name="label_17">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK TC</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>IVA total</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-         <widget class="QTextEdit" name="textEdit_39">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK TC</family>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
-          </property>
-          <property name="html">
-           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;$769.992&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_9">
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>Badtrip</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignRight">
+      <widget class="QLabel" name="label_9">
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
-         <height>150</height>
+         <width>100</width>
+         <height>16777215</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #B3C7ED;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="text">
+        <string>Desde:</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="label_16">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK TC</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Total SumUp</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignVCenter">
-         <widget class="QTextEdit" name="textEdit_38">
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK TC</family>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
-          </property>
-          <property name="html">
-           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;$1.880.300&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_7">
+      <widget class="QDateEdit" name="dateEdit"/>
+     </item>
+     <item alignment="Qt::AlignRight">
+      <widget class="QLabel" name="label_10">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Hasta:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="dateEdit_2"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="QGroupBox" name="groupBox_8">
        <property name="maximumSize">
         <size>
          <width>16777215</width>
@@ -253,29 +134,9 @@ p, li { white-space: pre-wrap; }
     border: transparent;
     border-radius: 8px;</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="label_14">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK TC</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Total bruto 
-del mes</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTextEdit" name="textEdit_36">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item alignment="Qt::AlignVCenter">
+         <widget class="QTextEdit" name="textEdit_34">
           <property name="font">
            <font>
             <family>Noto Sans CJK TC</family>
@@ -292,43 +153,7 @@ del mes</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;$4.820.500&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox_8">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>150</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #F4DE87;
-    border: transparent;
-    border-radius: 8px;</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="label_15">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK TC</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Total efectivo</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;IVA total&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -350,7 +175,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;$2.940.200&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;$600.000&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -366,31 +191,133 @@ p, li { white-space: pre-wrap; }
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: #C2EDB3;
-    border: transparent;
+        <string notr="true">background-color: #B3C7ED; 
+   border: transparent;
     border-radius: 8px;</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="label_18">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item alignment="Qt::AlignVCenter">
+         <widget class="QTextEdit" name="textEdit_47">
           <property name="font">
            <font>
             <family>Noto Sans CJK TC</family>
             <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
-          <property name="text">
-           <string>Comisión 
-SumUp</string>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Total SumUp&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit_48">
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK TC</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;100&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_10">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>150</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #F4DE87;
+    border: transparent;
+    border-radius: 8px;</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item alignment="Qt::AlignVCenter">
+         <widget class="QTextEdit" name="textEdit_44">
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK TC</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Comisión SumUp&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit_45">
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK TC</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;$600.000&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_9">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>150</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #EDD2F3;
+    border: transparent;
+    border-radius: 8px;</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <widget class="QTextEdit" name="textEdit_41">
           <property name="font">
@@ -409,55 +336,12 @@ SumUp</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;$32.905&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox_12">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>130</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>150</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #B3C7ED;
-    border: transparent;
-    border-radius: 8px;</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item alignment="Qt::AlignHCenter">
-         <widget class="QLabel" name="label_19">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>60</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Noto Sans CJK TC</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Neto a 
-liquidar</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Total efectivo&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit_43">
+         <widget class="QTextEdit" name="textEdit_42">
           <property name="font">
            <font>
             <family>Noto Sans CJK TC</family>
@@ -474,7 +358,141 @@ liquidar</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;$4.017.603&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;$600.000&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_12">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>150</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #D4EDB3;
+    border: transparent;
+    border-radius: 8px;</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QTextEdit" name="textEdit_33">
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK TC</family>
+            <pointsize>13</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:13pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:400;&quot;&gt;Nro. de ventas&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit_43">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>150</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK TC</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;$600.000&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_7">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>150</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #F3B3B3;
+    border: transparent;
+    border-radius: 8px;</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QTextEdit" name="textEdit_32">
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK TC</family>
+            <pointsize>13</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:13pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:400;&quot;&gt;Neto a liquidar&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit_36">
+          <property name="font">
+           <font>
+            <family>Noto Sans CJK TC</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: transparent;</string>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;$600.000&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -510,6 +528,9 @@ p, li { white-space: pre-wrap; }
      <property name="showGrid">
       <bool>true</bool>
      </property>
+     <attribute name="horizontalHeaderCascadingSectionResizes">
+      <bool>false</bool>
+     </attribute>
      <attribute name="horizontalHeaderStretchLastSection">
       <bool>true</bool>
      </attribute>
@@ -586,34 +607,29 @@ p, li { white-space: pre-wrap; }
        <string>Nueva fila</string>
       </property>
      </row>
-     <row>
-      <property name="text">
-       <string>Nueva fila</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>Nueva fila</string>
-      </property>
-     </row>
      <column>
       <property name="text">
-       <string>Pyme/Tienda</string>
+       <string>Fecha</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Efectivo</string>
+       <string>Artículo</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>SumUp</string>
+       <string>Precio unitario</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Total bruto</string>
+       <string>Cant.</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Total</string>
       </property>
      </column>
      <column>
@@ -628,12 +644,12 @@ p, li { white-space: pre-wrap; }
      </column>
      <column>
       <property name="text">
-       <string>Neto</string>
+       <string>Método</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>N° ventas</string>
+       <string>Comentario</string>
       </property>
      </column>
     </widget>

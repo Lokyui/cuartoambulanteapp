@@ -432,6 +432,45 @@ class DAL:
         with self.conexion() as conn:
             cur = conn.execute("DELETE FROM caja_diaria WHERE fecha = ?", (_to_fecha(fecha),))
             return cur.rowcount > 0
+        
+    def obtener_detalle_reporte_pyme(self, pyme_id: int, fecha_desde: str, fecha_hasta: str) -> dict[str, Any]:
+        """
+        Obtiene el listado de ventas detallado y los totales agregados 
+        para una PYME específica en un rango de fechas.
+        """
+        # 1. Obtener el listado para la tabla
+        sql_detalle = """
+            SELECT fecha, articulo, valor, cantidad, total, iva, 
+                   COALESCE(comision_sumup, 0) as comision_sumup, metodo, comentario
+            FROM ventas
+            WHERE pyme_id = ? AND fecha BETWEEN ? AND ?
+            ORDER BY fecha ASC
+        """
+        
+        # 2. Obtener los totales para los GroupBox (Cuadros de colores)
+        sql_totales = """
+            SELECT 
+                COUNT(id) as n_ventas,
+                SUM(CASE WHEN metodo = 'efectivo' THEN total ELSE 0 END) as total_efectivo,
+                SUM(CASE WHEN metodo = 'sumup' THEN total ELSE 0 END) as total_sumup,
+                SUM(iva) as total_iva,
+                SUM(COALESCE(comision_sumup, 0)) as total_comision,
+                SUM(total) - SUM(iva) - SUM(COALESCE(comision_sumup, 0)) as neto_liquidar
+            FROM ventas
+            WHERE pyme_id = ? AND fecha BETWEEN ? AND ?
+        """
+        
+        with self.conexion() as conn:
+            detalle = self._filas(conn.execute(sql_detalle, (pyme_id, fecha_desde, fecha_hasta)).fetchall())
+            totales = self._fila(conn.execute(sql_totales, (pyme_id, fecha_desde, fecha_hasta)).fetchone())
+            
+        return {
+            "detalle": detalle,
+            "resumen": totales if totales["n_ventas"] > 0 else {
+                "n_ventas": 0, "total_efectivo": 0, "total_sumup": 0, 
+                "total_iva": 0, "total_comision": 0, "neto_liquidar": 0
+            }
+        }
 
     def crear_paquete(
         self,
@@ -480,27 +519,40 @@ class DAL:
             return self._fila(row)
 
     def listar_paquetes(
-        self,
-        estado: str | None = None,
-        estado_pago: str | None = None,
-        pyme_remitente_id: int | None = None,
-    ) -> list[dict[str, Any]]:
-        sql = "SELECT * FROM paquetes"
+    self,
+    estado: str | None = None,
+    estado_pago: str | None = None,
+    pyme_remitente_id: int | None = None,
+) -> list[dict[str, Any]]:
+
+        sql = """
+            SELECT
+                paquetes.*,
+                pymes.nombre AS nombre_pyme
+            FROM paquetes
+            LEFT JOIN pymes
+                ON paquetes.pyme_remitente_id = pymes.id
+        """
+
         where: list[str] = []
         params: list[Any] = []
 
         if estado is not None:
-            where.append("estado = ?")
+            where.append("paquetes.estado = ?")
             params.append(estado)
+
         if estado_pago is not None:
-            where.append("estado_pago = ?")
+            where.append("paquetes.estado_pago = ?")
             params.append(estado_pago)
+
         if pyme_remitente_id is not None:
-            where.append("pyme_remitente_id = ?")
+            where.append("paquetes.pyme_remitente_id = ?")
             params.append(pyme_remitente_id)
+
         if where:
             sql += " WHERE " + " AND ".join(where)
-        sql += " ORDER BY fecha_llegada DESC, id DESC"
+
+        sql += " ORDER BY paquetes.fecha_llegada DESC, paquetes.id DESC"
 
         with self.conexion() as conn:
             rows = conn.execute(sql, params).fetchall()
