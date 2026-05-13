@@ -145,19 +145,50 @@ class DAL:
             cur = conn.execute("DELETE FROM personal WHERE id = ?", (personal_id,))
             return cur.rowcount > 0
 
+    @staticmethod
+    def _articulo_cabecera(items: list[dict[str, Any]]) -> str:
+        """Deriva el campo `articulo` (cabecera) a partir de la lista de items.
+
+        Un solo item -> nombre del producto.
+        Varios items -> "<primero> (+N)" donde N es la cantidad de items extra.
+        """
+        primero = str(items[0]["producto"]).strip()
+        extras = len(items) - 1
+        return primero if extras == 0 else f"{primero} (+{extras})"
+
     def crear_venta(
         self,
         fecha: str | date,
         pyme_id: int,
-        articulo: str | None,
-        valor: int,
-        cantidad: int,
         metodo: str,
+        *,
         iva: int,
         comision_sumup: int | None,
         total: int,
+        items: list[dict[str, Any]] | None = None,
         comentario: str | None = None,
     ) -> int:
+        """Inserta la venta + (opcionalmente) sus items en una sola transacción.
+
+        Firma conceptual: el DAL deriva internamente los agregados que el esquema
+        exige NOT NULL (`articulo`, `valor`, `cantidad`):
+
+        - Si `items` viene poblada: `articulo` se arma con [[_articulo_cabecera]];
+          `cantidad` = suma de cantidades; `valor` = `total`.
+        - Si `items` es None o vacía: `articulo` = "Venta general"; `cantidad` = 1;
+          `valor` = `total`. Útil para tests de CHECK que solo prueban la cabecera.
+
+        El rollback automático de `conexion()` garantiza que un fallo a mitad de
+        camino no deje una venta huérfana sin items.
+        """
+        items_list = list(items) if items else []
+        if items_list:
+            articulo = self._articulo_cabecera(items_list)
+            cantidad_total = sum(int(i["cantidad"]) for i in items_list)
+        else:
+            articulo = "Venta general"
+            cantidad_total = 1
+
         with self.conexion() as conn:
             cur = conn.execute(
                 """
@@ -169,8 +200,8 @@ class DAL:
                     _to_fecha(fecha),
                     pyme_id,
                     articulo,
-                    valor,
-                    cantidad,
+                    total,           # `valor` actúa como agregado en multi-item
+                    cantidad_total,
                     metodo,
                     iva,
                     comision_sumup,
@@ -178,7 +209,22 @@ class DAL:
                     comentario,
                 ),
             )
-            return int(cur.lastrowid)
+            venta_id = int(cur.lastrowid)
+            for item in items_list:
+                producto = item["producto"]
+                precio = int(item["precio"])
+                cantidad_item = int(item["cantidad"])
+                subtotal = item.get("subtotal")
+                subtotal_calc = int(subtotal) if subtotal is not None else precio * cantidad_item
+                conn.execute(
+                    """
+                    INSERT INTO venta_items
+                    (venta_id, producto, precio, cantidad, subtotal)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    (venta_id, producto, precio, cantidad_item, subtotal_calc),
+                )
+            return venta_id
 
     def obtener_venta(self, venta_id: int) -> dict[str, Any] | None:
         with self.conexion() as conn:
@@ -210,50 +256,6 @@ class DAL:
         with self.conexion() as conn:
             rows = conn.execute(sql, params).fetchall()
             return self._filas(rows)            
-
-    def reporte_mensual(self, anio: int, mes: int) -> list[dict[str, Any]]:
-        """
-        Devuelve una fila por pyme con los totales del mes indicado.
-        Solo incluye pymes que tuvieron al menos una venta en el período.
-        Resultado ordenado por total_bruto DESC.
-        """
-        # Construir rango de fechas del mes
-        import calendar
-        ultimo_dia = calendar.monthrange(anio, mes)[1]
-        fecha_desde = f"{anio}-{mes:02d}-01"
-        fecha_hasta = f"{anio}-{mes:02d}-{ultimo_dia:02d}"
- 
-        sql = """
-            SELECT
-                p.nombre,
-                COALESCE(SUM(CASE WHEN v.metodo = 'efectivo' THEN v.total ELSE 0 END), 0)
-                    AS efectivo,
-                COALESCE(SUM(CASE WHEN v.metodo = 'sumup'    THEN v.total ELSE 0 END), 0)
-                    AS sumup,
-                COALESCE(SUM(v.total), 0)
-                    AS total_bruto,
-                COALESCE(SUM(v.iva), 0)
-                    AS iva,
-                COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
-                    AS comision_sumup,
-                COALESCE(SUM(v.total), 0)
-                    - COALESCE(SUM(v.iva), 0)
-                    - COALESCE(SUM(COALESCE(v.comision_sumup, 0)), 0)
-                    AS neto,
-                COUNT(v.id)
-                    AS n_ventas
-            FROM pymes p
-            INNER JOIN ventas v
-                ON v.pyme_id = p.id
-               AND v.fecha BETWEEN ? AND ?
-            GROUP BY p.id, p.nombre
-            ORDER BY total_bruto DESC
-        """
-        with self.conexion() as conn:
-            rows = conn.execute(sql, (fecha_desde, fecha_hasta)).fetchall()
-            return self._filas(rows)
- 
-
 
     def actualizar_venta(self, venta_id: int, datos: dict[str, Any]) -> bool:
         permitidos = {
