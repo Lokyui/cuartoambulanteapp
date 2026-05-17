@@ -1,18 +1,21 @@
 from __future__ import annotations
 
+from datetime import date
+from pathlib import Path
+
 from PyQt5 import uic
 from PyQt5.QtWidgets import (
     QWidget,
     QMessageBox,
     QFrame,
     QVBoxLayout,
-    QLabel
+    QLabel,
 )
-from datetime import date
-from ui.views.registro_retiro import RegistroRetiroDialog
+
+from src.ui.views.registro_retiro import RegistroRetiroDialog
 from src.modules.retiros_module import RetirosModule
 
-UI_PATH = "src/ui/views/retiros.ui"
+UI_PATH = str(Path(__file__).parent / "retiros.ui")
 
 DIAS_ES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 MESES_ES = [
@@ -26,8 +29,7 @@ class RetirosView(QWidget):
         self.module = module
 
         try:
-            #Cargar el UI
-            uic.loadUi("src/ui/views/retiros.ui", self)
+            uic.loadUi(UI_PATH, self)
             hoy = date.today()
             dia_semana = DIAS_ES[hoy.weekday()]
             mes = MESES_ES[hoy.month]

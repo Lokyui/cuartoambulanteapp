@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: white;</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_7">
    <property name="sizeConstraint">
     <enum>QLayout::SetDefaultConstraint</enum>
@@ -53,7 +50,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit_10">
+        <widget class="QLabel" name="lblFecha">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -66,11 +63,11 @@
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: transparent;</string>
-         </property>
-         <property name="plainText">
+         <property name="text">
           <string>Lunes 27 de abril, 2026</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -88,7 +85,7 @@
         <number>40</number>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButton_9">
+        <widget class="QPushButton" name="btnRegistrarVenta">
          <property name="minimumSize">
           <size>
            <width>150</width>
@@ -98,11 +95,8 @@
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;
-text-align: right;</string>
+         <property name="class" stdset="0">
+          <string>btn-accion-dashboard</string>
          </property>
          <property name="text">
           <string>Registrar venta  </string>
@@ -120,18 +114,15 @@ text-align: right;</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btnNuevoRetiro">
          <property name="minimumSize">
           <size>
            <width>150</width>
            <height>40</height>
           </size>
          </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;
-text-align: right;</string>
+         <property name="class" stdset="0">
+          <string>btn-accion-dashboard</string>
          </property>
          <property name="text">
           <string>Nuevo paquete  </string>
@@ -165,12 +156,10 @@ text-align: right;</string>
      </property>
      <item>
       <widget class="QGroupBox" name="groupBox_9">
-       <property name="styleSheet">
-        <string notr="true">background-color: #B3C7ED;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-azul</string>
        </property>
-       <widget class="QTextEdit" name="textEdit_38">
+       <widget class="QLabel" name="lblNumeroVentas">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -179,23 +168,14 @@ text-align: right;</string>
           <height>41</height>
          </rect>
         </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+        <property name="class" stdset="0">
+         <string>display</string>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: transparent;</string>
+        <property name="text">
+         <string>40</string>
         </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;40&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_16">
@@ -221,12 +201,10 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <widget class="QGroupBox" name="groupBox_7">
-       <property name="styleSheet">
-        <string notr="true">background-color: #C2EDB3;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-verde</string>
        </property>
-       <widget class="QTextEdit" name="textEdit_36">
+       <widget class="QLabel" name="lblTotalDia">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -235,23 +213,14 @@ p, li { white-space: pre-wrap; }
           <height>41</height>
          </rect>
         </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+        <property name="class" stdset="0">
+         <string>display</string>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: transparent;</string>
+        <property name="text">
+         <string>$150.000</string>
         </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;$150.000&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_11">
@@ -277,12 +246,10 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <widget class="QGroupBox" name="groupBox_8">
-       <property name="styleSheet">
-        <string notr="true">background-color: #F4DE87;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-amarillo</string>
        </property>
-       <widget class="QTextEdit" name="textEdit_37">
+       <widget class="QLabel" name="lblTotalSinComision">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -291,23 +258,14 @@ p, li { white-space: pre-wrap; }
           <height>41</height>
          </rect>
         </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+        <property name="class" stdset="0">
+         <string>display</string>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: transparent;</string>
+        <property name="text">
+         <string>$126.000</string>
         </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;$126.000&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_15">
@@ -340,12 +298,10 @@ Comisión</string>
          <height>140</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #EDC9B3;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-naranja</string>
        </property>
-       <widget class="QTextEdit" name="textEdit_39">
+       <widget class="QLabel" name="lblEntregasPendientes">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -354,23 +310,14 @@ Comisión</string>
           <height>41</height>
          </rect>
         </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>12</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+        <property name="class" stdset="0">
+         <string>display</string>
         </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: transparent;</string>
+        <property name="text">
+         <string>6</string>
         </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans CJK TC'; font-size:12pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;6&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
        <widget class="QLabel" name="label_17">
@@ -442,7 +389,7 @@ pendientes</string>
       <number>0</number>
      </property>
      <item>
-      <widget class="QTableWidget" name="tableWidget">
+      <widget class="QTableWidget" name="tablaVentasRecientes">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -453,17 +400,6 @@ pendientes</string>
         <font>
          <family>Noto Sans CJK TC</family>
         </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QHeaderView::section {
-    background-color: #E9E9E9;
-    color: black;
-    border: none;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 6px;
-}
-</string>
        </property>
        <property name="showGrid">
         <bool>true</bool>
@@ -570,7 +506,7 @@ pendientes</string>
         </widget>
        </item>
        <item>
-        <widget class="QTableWidget" name="tableWidget_2">
+        <widget class="QTableWidget" name="tablaVentasPorTienda">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -582,17 +518,6 @@ pendientes</string>
            <width>350</width>
            <height>0</height>
           </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QHeaderView::section {
-    background-color: #E9E9E9;
-    color: black;
-    border: none;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 6px;
-}
-</string>
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QAbstractScrollArea::AdjustToContents</enum>
@@ -651,7 +576,7 @@ pendientes</string>
               <number>0</number>
              </property>
              <item>
-              <widget class="QPlainTextEdit" name="plainTextEdit_20">
+              <widget class="QLabel" name="lblRetiroNombre1">
                <property name="minimumSize">
                 <size>
                  <width>170</width>
@@ -664,56 +589,60 @@ pendientes</string>
                  <height>100</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+               <property name="class" stdset="0">
+                <string>retiro-pendiente</string>
                </property>
-               <property name="plainText">
+               <property name="text">
                 <string>Nombre Apellido</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QTextEdit" name="textEdit_8">
+              <widget class="QLabel" name="lblRetiroEstado1">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
                  <height>50</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+               <property name="font">
+                <font>
+                 <family>Ubuntu</family>
+                 <pointsize>9</pointsize>
+                </font>
                </property>
-               <property name="html">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Pagado&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <property name="class" stdset="0">
+                <string>retiro-pendiente</string>
+               </property>
+               <property name="text">
+                <string>Pagado</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
            <item>
-            <widget class="QTextEdit" name="textEdit_21">
+            <widget class="QLabel" name="lblRetiroUbicacion1">
              <property name="maximumSize">
               <size>
                <width>80</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+             <property name="font">
+              <font>
+               <family>Ubuntu</family>
+               <pointsize>11</pointsize>
+              </font>
              </property>
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="class" stdset="0">
+              <string>retiro-pendiente</string>
+             </property>
+             <property name="text">
+              <string>A1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -730,7 +659,7 @@ p, li { white-space: pre-wrap; }
               <number>0</number>
              </property>
              <item>
-              <widget class="QPlainTextEdit" name="plainTextEdit_18">
+              <widget class="QLabel" name="lblRetiroNombre2">
                <property name="minimumSize">
                 <size>
                  <width>170</width>
@@ -743,56 +672,60 @@ p, li { white-space: pre-wrap; }
                  <height>100</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+               <property name="class" stdset="0">
+                <string>retiro-pendiente</string>
                </property>
-               <property name="plainText">
+               <property name="text">
                 <string>Nombre Apellido</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QTextEdit" name="textEdit_6">
+              <widget class="QLabel" name="lblRetiroEstado2">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
                  <height>50</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+               <property name="font">
+                <font>
+                 <family>Ubuntu</family>
+                 <pointsize>9</pointsize>
+                </font>
                </property>
-               <property name="html">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Pagado&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <property name="class" stdset="0">
+                <string>retiro-pendiente</string>
+               </property>
+               <property name="text">
+                <string>Pagado</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
            <item>
-            <widget class="QTextEdit" name="textEdit_19">
+            <widget class="QLabel" name="lblRetiroUbicacion2">
              <property name="maximumSize">
               <size>
                <width>80</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+             <property name="font">
+              <font>
+               <family>Ubuntu</family>
+               <pointsize>11</pointsize>
+              </font>
              </property>
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="class" stdset="0">
+              <string>retiro-pendiente</string>
+             </property>
+             <property name="text">
+              <string>A1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -809,7 +742,7 @@ p, li { white-space: pre-wrap; }
               <number>0</number>
              </property>
              <item>
-              <widget class="QPlainTextEdit" name="plainTextEdit_19">
+              <widget class="QLabel" name="lblRetiroNombre3">
                <property name="minimumSize">
                 <size>
                  <width>170</width>
@@ -822,56 +755,60 @@ p, li { white-space: pre-wrap; }
                  <height>100</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+               <property name="class" stdset="0">
+                <string>retiro-pendiente</string>
                </property>
-               <property name="plainText">
+               <property name="text">
                 <string>Nombre Apellido</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QTextEdit" name="textEdit_7">
+              <widget class="QLabel" name="lblRetiroEstado3">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
                  <height>50</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+               <property name="font">
+                <font>
+                 <family>Ubuntu</family>
+                 <pointsize>9</pointsize>
+                </font>
                </property>
-               <property name="html">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Pagado&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <property name="class" stdset="0">
+                <string>retiro-pendiente</string>
+               </property>
+               <property name="text">
+                <string>Pagado</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
            <item>
-            <widget class="QTextEdit" name="textEdit_20">
+            <widget class="QLabel" name="lblRetiroUbicacion3">
              <property name="maximumSize">
               <size>
                <width>80</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="styleSheet">
-              <string notr="true">background-color: #F0F0F0;
-border: transparent;</string>
+             <property name="font">
+              <font>
+               <family>Ubuntu</family>
+               <pointsize>11</pointsize>
+              </font>
              </property>
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;A1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="class" stdset="0">
+              <string>retiro-pendiente</string>
+             </property>
+             <property name="text">
+              <string>A1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>

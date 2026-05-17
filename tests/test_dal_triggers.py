@@ -5,7 +5,7 @@ from datetime import date
 
 import pytest
 
-from db.dal import DAL
+from src.db.dal import DAL
 
 
 def _setup_caja_cerrada_con_venta(dal: DAL) -> tuple[int, int, int]:

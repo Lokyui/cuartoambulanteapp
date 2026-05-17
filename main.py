@@ -5,26 +5,18 @@ from pathlib import Path
 
 from PyQt5.QtWidgets import QApplication
 
-# ── Ajuste de sys.path para que los imports funcionen desde la raíz ──────────
+from src.db.dal import DAL
+from src.ui.views.main_window import MainWindow
+from src.modules.ventas_module import VentasModule
+from src.modules.retiros_module import RetirosModule
+from src.modules.reportes_module import ReportesModule
+from src.modules.caja_module import CajaModule
+
 ROOT = Path(__file__).resolve().parent
-SRC  = ROOT / "src"
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(SRC))
-
-from db.dal import DAL  # noqa: E402  (import después del path-hack)
-from ui.views.main_window import MainWindow
-from ui.views.ventas import VentasView
-from ui.views.reporte_mensual import ReporteMensualView
-from ui.views.resumen_caja import ResumenCajaView
-from ui.views.reporte_pyme import ReportePymeView
-from modules.ventas_module import VentasModule
-from modules.retiros_module import RetirosModule
-from modules.reportes_module import ReportesModule
-from modules.caja_module import CajaModule
-
-# ── Rutas ────────────────────────────────────────────────────────────────────
-DB_PATH     = SRC / "db" / "cuarto_ambulante.db"
+SRC = ROOT / "src"
+DB_PATH = SRC / "db" / "cuarto_ambulante.db"
 SCHEMA_PATH = SRC / "db" / "schema.sql"
+THEME_PATH = SRC / "ui" / "assets" / "theme.qss"
 SEEDS = [
     SRC / "db" / "seed.sql",
     SRC / "db" / "seed_ventas.sql",
@@ -52,22 +44,20 @@ def preparar_base_de_datos(dal: DAL) -> None:
 
 def main() -> None:
     app = QApplication(sys.argv)
+    app.setStyleSheet(THEME_PATH.read_text(encoding="utf-8"))
     dal = DAL(db_path=DB_PATH)
     preparar_base_de_datos(dal)
 
-    # 1. Instanciar los módulos de lógica
     ventas_mod = VentasModule(dal)
     retiros_mod = RetirosModule(dal)
     reportes_mod = ReportesModule(dal)
     caja_mod = CajaModule(dal)
 
-    # 2. Pasar los módulos a las vistas (en lugar del dal)
-    # Ejemplo con MainWindow (puedes pasarle todos o solo los necesarios)
     ventana = MainWindow(
         ventas_mod=ventas_mod,
         retiros_mod=retiros_mod,
         reportesModule=reportes_mod,
-        caja_module=caja_mod
+        caja_module=caja_mod,
     )
     ventana.show()
     sys.exit(app.exec_())
@@ -75,4 +65,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-    

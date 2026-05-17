@@ -1,13 +1,15 @@
 from __future__ import annotations
 
-import src.ui.resources_rc 
+from datetime import date
+from pathlib import Path
+
+import src.ui.resources_rc  # noqa: F401
 from PyQt5 import uic
 from PyQt5.QtWidgets import QWidget
-from db.dal import DAL
-from src.modules.caja_module import CajaModule
-from datetime import date
 
-UI_PATH = "src/ui/views/resumen_caja.ui"
+from src.modules.caja_module import CajaModule
+
+UI_PATH = str(Path(__file__).parent / "resumen_caja.ui")
 
 DIAS_ES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 MESES_ES = [

@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 
-from modules.ventas_module import VentasModule
+from src.modules.ventas_module import VentasModule
 
 
 class FakeDAL:

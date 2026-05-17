@@ -1,5 +1,5 @@
 from datetime import date
-from db.dal import DAL
+from src.db.dal import DAL
 
 class CajaModule:
     def __init__(self, dal: DAL):

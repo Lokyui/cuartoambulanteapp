@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QFrame" name="frame_2">
+     <widget class="QFrame" name="sidebar">
       <property name="minimumSize">
        <size>
         <width>290</width>
@@ -29,111 +29,12 @@
         <height>16777215</height>
        </size>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: #DDDDDD;</string>
-      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>180</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/icons/home_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>240</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/icons/post_add_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_3">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>300</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/icons/article_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>360</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/icons/local_shipping_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_5">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>480</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/icons/analytics_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>540</y>
-         <width>31</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">image: url(:/icons/chart_data_25dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg);</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
       <widget class="QLabel" name="label_8">
        <property name="geometry">
         <rect>
@@ -159,19 +60,6 @@
          <height>40</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    padding-left: 10px;
-    font-family: 'Noto Sans CJK TC';
-    font-size: 12pt;
-}
-QPushButton:hover {
-    background-color: #EFEFEF; /* Efecto sutil al pasar el mouse */
-}</string>
-       </property>
        <property name="text">
         <string>Dashboard</string>
        </property>
@@ -184,19 +72,6 @@ QPushButton:hover {
          <width>160</width>
          <height>40</height>
         </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    padding-left: 10px;
-    font-family: 'Noto Sans CJK TC';
-    font-size: 12pt;
-}
-QPushButton:hover {
-    background-color: #EFEFEF; /* Efecto sutil al pasar el mouse */
-}</string>
        </property>
        <property name="text">
         <string>Añadir venta</string>
@@ -211,19 +86,6 @@ QPushButton:hover {
          <height>40</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    padding-left: 10px;
-    font-family: 'Noto Sans CJK TC';
-    font-size: 12pt;
-}
-QPushButton:hover {
-    background-color: #EFEFEF; /* Efecto sutil al pasar el mouse */
-}</string>
-       </property>
        <property name="text">
         <string>Cierre de caja</string>
        </property>
@@ -236,19 +98,6 @@ QPushButton:hover {
          <width>160</width>
          <height>40</height>
         </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    padding-left: 10px;
-    font-family: 'Noto Sans CJK TC';
-    font-size: 12pt;
-}
-QPushButton:hover {
-    background-color: #EFEFEF; /* Efecto sutil al pasar el mouse */
-}</string>
        </property>
        <property name="text">
         <string>Retiros</string>
@@ -263,19 +112,6 @@ QPushButton:hover {
          <height>40</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    padding-left: 10px;
-    font-family: 'Noto Sans CJK TC';
-    font-size: 12pt;
-}
-QPushButton:hover {
-    background-color: #EFEFEF; /* Efecto sutil al pasar el mouse */
-}</string>
-       </property>
        <property name="text">
         <string>Por tiendas</string>
        </property>
@@ -289,24 +125,11 @@ QPushButton:hover {
          <height>40</height>
         </rect>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: transparent;
-    border: none;
-    text-align: left;
-    padding-left: 10px;
-    font-family: 'Noto Sans CJK TC';
-    font-size: 12pt;
-}
-QPushButton:hover {
-    background-color: #EFEFEF; /* Efecto sutil al pasar el mouse */
-}</string>
-       </property>
        <property name="text">
         <string>Mensual</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_12">
+      <widget class="QLabel" name="lblSeccionPrincipal">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -325,7 +148,7 @@ QPushButton:hover {
         <string>PRINCIPAL</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_13">
+      <widget class="QLabel" name="lblSeccionReportes">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -344,7 +167,7 @@ QPushButton:hover {
         <string>REPORTES</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_14">
+      <widget class="QLabel" name="lblTituloApp">
        <property name="geometry">
         <rect>
          <x>120</x>
@@ -370,16 +193,12 @@ VENTAS</string>
     </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
-      <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
-      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QWidget" name="stackedWidgetPage1"/>
      </widget>
     </item>
    </layout>

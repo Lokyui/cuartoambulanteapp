@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date
 from typing import Any
 
-from db.dal import DAL
+from src.db.dal import DAL
 
 
 # Fórmulas oficiales (ver seed_ventas.sql y CLAUDE.md):

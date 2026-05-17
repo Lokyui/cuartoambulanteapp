@@ -1,4 +1,4 @@
-from db.dal import DAL
+from src.db.dal import DAL
 from typing import Any
 
 class ReportesModule:

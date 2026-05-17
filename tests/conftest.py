@@ -7,13 +7,12 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DB_SRC = ROOT / "src"
 
-if str(DB_SRC) not in sys.path:
-    sys.path.insert(0, str(DB_SRC))
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
-from db.dal import DAL  # noqa: E402
+from src.db.dal import DAL  # noqa: E402
 
 
 @pytest.fixture

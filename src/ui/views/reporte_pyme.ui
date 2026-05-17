@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color:white;</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>10</number>
@@ -129,10 +126,8 @@
          <height>150</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #C2EDB3;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-verde</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item alignment="Qt::AlignVCenter">
@@ -144,9 +139,6 @@
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -166,9 +158,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -190,10 +179,8 @@ p, li { white-space: pre-wrap; }
          <height>150</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #B3C7ED; 
-   border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-azul</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <item alignment="Qt::AlignVCenter">
@@ -205,9 +192,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -227,9 +211,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -251,10 +232,8 @@ p, li { white-space: pre-wrap; }
          <height>150</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #F4DE87;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-amarillo</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <item alignment="Qt::AlignVCenter">
@@ -266,9 +245,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -288,9 +264,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -312,10 +285,8 @@ p, li { white-space: pre-wrap; }
          <height>150</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #EDD2F3;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-lila</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
@@ -327,9 +298,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -349,9 +317,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -379,10 +344,8 @@ p, li { white-space: pre-wrap; }
          <height>150</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #D4EDB3;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-verde-claro</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_10">
         <item>
@@ -394,9 +357,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -423,9 +383,6 @@ p, li { white-space: pre-wrap; }
             <bold>true</bold>
            </font>
           </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
-          </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -446,10 +403,8 @@ p, li { white-space: pre-wrap; }
          <height>150</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #F3B3B3;
-    border: transparent;
-    border-radius: 8px;</string>
+       <property name="class" stdset="0">
+        <string>tarjeta-rosa</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
@@ -461,9 +416,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -483,9 +435,6 @@ p, li { white-space: pre-wrap; }
             <weight>75</weight>
             <bold>true</bold>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: transparent;</string>
           </property>
           <property name="html">
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -513,17 +462,6 @@ p, li { white-space: pre-wrap; }
       <font>
        <family>Noto Sans CJK TC</family>
       </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QHeaderView::section {
-    background-color: #E9E9E9;
-    color: black;
-    border: none;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 6px;
-}
-</string>
      </property>
      <property name="showGrid">
       <bool>true</bool>
@@ -670,10 +608,8 @@ p, li { white-space: pre-wrap; }
          <height>16777215</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #C2EDB3;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+       <property name="class" stdset="0">
+        <string>btn-primario</string>
        </property>
        <property name="text">
         <string>Exportar Excel</string>
@@ -694,10 +630,8 @@ p, li { white-space: pre-wrap; }
          <height>16777215</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #B3C7ED;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+       <property name="class" stdset="0">
+        <string>btn-info</string>
        </property>
        <property name="text">
         <string>Generar reporte</string>

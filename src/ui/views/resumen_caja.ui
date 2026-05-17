@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color:white;</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <property name="spacing">
     <number>30</number>
@@ -119,9 +116,8 @@
          <bold>true</bold>
         </font>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #D9D9D9;
-border: transparent;</string>
+       <property name="class" stdset="0">
+        <string>banner</string>
        </property>
        <property name="text">
         <string>Total ingresos</string>
@@ -130,23 +126,8 @@ border: transparent;</string>
      </item>
      <item>
       <widget class="QTableWidget" name="tableWidget">
-       <property name="styleSheet">
-        <string notr="true">QTableWidget {
-    background-color: #EFEFEF;
-    border: none;
-    gridline-color: transparent;
-    outline: 0;
-    color: black;
-    selection-background-color: #EFEFEF;
-    selection-color: black;
-}
-
-QHeaderView::section {
-    background-color: #EFEFEF;
-    color: black;
-    border: none;
-    padding: 6px;
-}</string>
+       <property name="class" stdset="0">
+        <string>tabla-caja</string>
        </property>
        <attribute name="horizontalHeaderVisible">
         <bool>false</bool>
@@ -262,26 +243,8 @@ QHeaderView::section {
          <height>50</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">QTableWidget {
-    background-color: #EFEFEF;
-    border: none;
-    gridline-color: transparent;
-    outline: 0;
-    font-size: 12px;
-    color: black;
-    selection-background-color: #EFEFEF;
-    selection-color: black;
-}
-
-QHeaderView::section {
-    background-color: #EFEFEF;
-    color: black;
-    border: none;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 6px;
-}</string>
+       <property name="class" stdset="0">
+        <string>tabla-caja</string>
        </property>
        <attribute name="horizontalHeaderVisible">
         <bool>false</bool>
@@ -376,9 +339,6 @@ QHeaderView::section {
          <pointsize>17</pointsize>
         </font>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: transparent;</string>
-       </property>
        <property name="plainText">
         <string>Comentarios</string>
        </property>
@@ -401,10 +361,8 @@ QHeaderView::section {
          <height>50</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #C2EDB3;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+       <property name="class" stdset="0">
+        <string>btn-primario</string>
        </property>
        <property name="text">
         <string>Imprimir reporte</string>

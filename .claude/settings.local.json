@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /b \"c:\\\\Users\\\\gpedr\\\\Desktop\\\\CUARTO AMBULANTE APP\\\\cuartoambulanteapp\")",
+      "Bash(python -c \"import ast, sys; [ast.parse\\(open\\(f, encoding='utf-8'\\).read\\(\\)\\) for f in ['main.py','src/ui/views/main_window.py','src/ui/views/dashboard.py','src/ui/views/ventas.py','src/ui/views/retiros.py','src/ui/views/reporte_mensual.py','src/ui/views/resumen_caja.py','src/ui/views/reporte_pyme.py','src/ui/views/registro_retiro.py','src/modules/ventas_module.py','src/modules/retiros_module.py','src/modules/reportes_module.py','src/modules/caja_module.py']]; print\\('Syntax OK'\\)\")",
+      "Bash(python -m pytest tests/ -x --tb=short)",
+      "Bash(python -m pytest tests/ --ignore=tests/test_dal_dashboard.py --tb=short)",
+      "Bash(python -c \"import xml.etree.ElementTree as ET; ET.parse\\('src/ui/views/dashboard.ui'\\); print\\('XML OK'\\)\")",
+      "Bash(python -c \"import xml.etree.ElementTree as ET; ET.parse\\('src/ui/views/dashboard.ui'\\); ET.parse\\('src/ui/views/main_window.ui'\\); print\\('OK'\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(python -m pytest tests/ --ignore=tests/test_dal_dashboard.py --ignore=tests/test_dal_historico_legacy.py --ignore=tests/test_dal_paquetes_busqueda.py --ignore=tests/test_dal_triggers.py --tb=short)"
+    ]
+  }
+}

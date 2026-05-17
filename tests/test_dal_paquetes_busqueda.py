@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date, timedelta
 
-from db.dal import DAL
+from src.db.dal import DAL
 
 
 def _setup_paquetes_demo(dal: DAL) -> tuple[int, int]:

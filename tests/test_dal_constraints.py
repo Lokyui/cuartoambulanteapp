@@ -5,7 +5,7 @@ from datetime import date
 
 import pytest
 
-from db.dal import DAL
+from src.db.dal import DAL
 
 
 def test_check_metodo_invalido(dal: DAL) -> None:
