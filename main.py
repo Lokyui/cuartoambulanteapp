@@ -3,6 +3,12 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+# Forzar UTF-8 en stdout/stderr (Windows usa cp1252 por defecto y revienta con → o ⚠)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 from PyQt5.QtWidgets import QApplication
 
 from src.db.dal import DAL
@@ -23,13 +29,22 @@ SEEDS = [
 ]
 
 
-def preparar_base_de_datos(dal: DAL) -> None:
-    db_nueva = not DB_PATH.exists() or DB_PATH.stat().st_size == 0
+def _necesita_seeds(dal: DAL) -> bool:
+    """Decide si hay que cargar seeds revisando si la tabla pymes tiene filas.
 
+    Chequear solo si el archivo .db existe no basta: si un seed falla a
+    mitad de carga, el archivo queda creado pero las tablas vacías.
+    """
+    with dal.conexion() as conn:
+        count = conn.execute("SELECT COUNT(*) FROM pymes").fetchone()[0]
+    return count == 0
+
+
+def preparar_base_de_datos(dal: DAL) -> None:
     dal.inicializar(SCHEMA_PATH)
 
-    if db_nueva:
-        print("[main] Base de datos nueva — cargando seeds...")
+    if _necesita_seeds(dal):
+        print("[main] Base de datos vacía — cargando seeds...")
         with dal.conexion() as conn:
             for seed in SEEDS:
                 if seed.exists():
