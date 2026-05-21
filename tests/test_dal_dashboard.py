@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from db.dal import DAL
+from src.db.dal import DAL
 
 
 def _venta(

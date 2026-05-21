@@ -13,16 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">#Form {
-background-color:white;
-}
-QFrame[objectName^=&quot;framePedido&quot;] {
- background-color: #EFEFEF;
-    border: 1px solid black;
-    border-radius: 8px;
-}</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <property name="leftMargin">
     <number>30</number>
@@ -88,9 +78,6 @@ QFrame[objectName^=&quot;framePedido&quot;] {
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: transparent;</string>
-         </property>
          <property name="plainText">
           <string>Lunes 27 de abril, 2026</string>
          </property>
@@ -117,11 +104,8 @@ QFrame[objectName^=&quot;framePedido&quot;] {
            <height>40</height>
           </size>
          </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;
-text-align: right;</string>
+         <property name="class" stdset="0">
+          <string>btn-accion-dashboard</string>
          </property>
          <property name="text">
           <string>Nuevo paquete  </string>
@@ -158,9 +142,8 @@ text-align: right;</string>
          <height>30</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true"> border-radius: 4px; 
-    border: 1px solid black;</string>
+       <property name="class" stdset="0">
+        <string>input-borde</string>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -185,10 +168,8 @@ p, li { white-space: pre-wrap; }
          <height>30</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+       <property name="class" stdset="0">
+        <string>btn-secundario</string>
        </property>
        <property name="text">
         <string>Todos</string>
@@ -209,10 +190,8 @@ p, li { white-space: pre-wrap; }
          <height>30</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+       <property name="class" stdset="0">
+        <string>btn-secundario</string>
        </property>
        <property name="text">
         <string>Por cobrar</string>
@@ -277,11 +256,6 @@ p, li { white-space: pre-wrap; }
        <height>16777215</height>
       </size>
      </property>
-     <property name="styleSheet">
-      <string notr="true">#scrollArea {
-border:transparent;
-}</string>
-     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -308,12 +282,8 @@ border:transparent;
              <height>140</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">#framePedido {
-background-color: #EFEFEF;
-    border: 1px solid black;
-    border-radius: 8px;
-}</string>
+           <property name="class" stdset="0">
+            <string>frame-pedido</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -342,9 +312,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Nombre Apellido</string>
                   </property>
@@ -364,9 +331,6 @@ background-color: #EFEFEF;
                     <pointsize>12</pointsize>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Por pagar</string>
                   </property>
@@ -385,9 +349,6 @@ background-color: #EFEFEF;
                     <family>Noto Sans CJK TC</family>
                     <pointsize>12</pointsize>
                    </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
                   </property>
                   <property name="plainText">
                    <string>Pyme: StickyClau | Retira: Nombre Apellido</string>
@@ -420,9 +381,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Ubicación A3</string>
                   </property>
@@ -442,10 +400,8 @@ background-color: #EFEFEF;
                     <height>40</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+                  <property name="class" stdset="0">
+                   <string>btn-secundario</string>
                   </property>
                   <property name="text">
                    <string>Marcar Entregado</string>
@@ -467,12 +423,8 @@ background-color: #EFEFEF;
              <height>140</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">#framePedido {
-background-color: #EFEFEF;
-    border: 1px solid black;
-    border-radius: 8px;
-}</string>
+           <property name="class" stdset="0">
+            <string>frame-pedido</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -501,9 +453,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Nombre Apellido</string>
                   </property>
@@ -523,9 +472,6 @@ background-color: #EFEFEF;
                     <pointsize>12</pointsize>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Por pagar</string>
                   </property>
@@ -544,9 +490,6 @@ background-color: #EFEFEF;
                     <family>Noto Sans CJK TC</family>
                     <pointsize>12</pointsize>
                    </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
                   </property>
                   <property name="plainText">
                    <string>Pyme: StickyClau | Retira: Nombre Apellido</string>
@@ -579,9 +522,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Ubicación A3</string>
                   </property>
@@ -601,10 +541,8 @@ background-color: #EFEFEF;
                     <height>40</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+                  <property name="class" stdset="0">
+                   <string>btn-secundario</string>
                   </property>
                   <property name="text">
                    <string>Marcar Entregado</string>
@@ -626,12 +564,8 @@ background-color: #EFEFEF;
              <height>140</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">#framePedido {
-background-color: #EFEFEF;
-    border: 1px solid black;
-    border-radius: 8px;
-}</string>
+           <property name="class" stdset="0">
+            <string>frame-pedido</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -660,9 +594,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Nombre Apellido</string>
                   </property>
@@ -682,9 +613,6 @@ background-color: #EFEFEF;
                     <pointsize>12</pointsize>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Por pagar</string>
                   </property>
@@ -703,9 +631,6 @@ background-color: #EFEFEF;
                     <family>Noto Sans CJK TC</family>
                     <pointsize>12</pointsize>
                    </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
                   </property>
                   <property name="plainText">
                    <string>Pyme: StickyClau | Retira: Nombre Apellido</string>
@@ -738,9 +663,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Ubicación A3</string>
                   </property>
@@ -760,10 +682,8 @@ background-color: #EFEFEF;
                     <height>40</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+                  <property name="class" stdset="0">
+                   <string>btn-secundario</string>
                   </property>
                   <property name="text">
                    <string>Marcar Entregado</string>
@@ -785,12 +705,8 @@ background-color: #EFEFEF;
              <height>140</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">#framePedido {
-background-color: #EFEFEF;
-    border: 1px solid black;
-    border-radius: 8px;
-}</string>
+           <property name="class" stdset="0">
+            <string>frame-pedido</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -819,9 +735,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Nombre Apellido</string>
                   </property>
@@ -841,9 +754,6 @@ background-color: #EFEFEF;
                     <pointsize>12</pointsize>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Por pagar</string>
                   </property>
@@ -862,9 +772,6 @@ background-color: #EFEFEF;
                     <family>Noto Sans CJK TC</family>
                     <pointsize>12</pointsize>
                    </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
                   </property>
                   <property name="plainText">
                    <string>Pyme: StickyClau | Retira: Nombre Apellido</string>
@@ -897,9 +804,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Ubicación A3</string>
                   </property>
@@ -919,10 +823,8 @@ background-color: #EFEFEF;
                     <height>40</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+                  <property name="class" stdset="0">
+                   <string>btn-secundario</string>
                   </property>
                   <property name="text">
                    <string>Marcar Entregado</string>
@@ -944,12 +846,8 @@ background-color: #EFEFEF;
              <height>140</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">#framePedido {
-background-color: #EFEFEF;
-    border: 1px solid black;
-    border-radius: 8px;
-}</string>
+           <property name="class" stdset="0">
+            <string>frame-pedido</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -978,9 +876,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Nombre Apellido</string>
                   </property>
@@ -1000,9 +895,6 @@ background-color: #EFEFEF;
                     <pointsize>12</pointsize>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Por pagar</string>
                   </property>
@@ -1021,9 +913,6 @@ background-color: #EFEFEF;
                     <family>Noto Sans CJK TC</family>
                     <pointsize>12</pointsize>
                    </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
                   </property>
                   <property name="plainText">
                    <string>Pyme: StickyClau | Retira: Nombre Apellido</string>
@@ -1056,9 +945,6 @@ background-color: #EFEFEF;
                     <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: transparent;</string>
-                  </property>
                   <property name="plainText">
                    <string>Ubicación A3</string>
                   </property>
@@ -1078,10 +964,8 @@ background-color: #EFEFEF;
                     <height>40</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+                  <property name="class" stdset="0">
+                   <string>btn-secundario</string>
                   </property>
                   <property name="text">
                    <string>Marcar Entregado</string>

@@ -3,41 +3,48 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+# Forzar UTF-8 en stdout/stderr (Windows usa cp1252 por defecto y revienta con → o ⚠)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 from PyQt5.QtWidgets import QApplication
 
-# ── Ajuste de sys.path para que los imports funcionen desde la raíz ──────────
+from src.db.dal import DAL
+from src.ui.views.main_window import MainWindow
+from src.modules.ventas_module import VentasModule
+from src.modules.retiros_module import RetirosModule
+from src.modules.reportes_module import ReportesModule
+from src.modules.caja_module import CajaModule
+
 ROOT = Path(__file__).resolve().parent
-SRC  = ROOT / "src"
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(SRC))
-
-from db.dal import DAL  # noqa: E402  (import después del path-hack)
-from ui.views.main_window import MainWindow
-from ui.views.ventas import VentasView
-from ui.views.reporte_mensual import ReporteMensualView
-from ui.views.resumen_caja import ResumenCajaView
-from ui.views.reporte_pyme import ReportePymeView
-from modules.ventas_module import VentasModule
-from modules.retiros_module import RetirosModule
-from modules.reportes_module import ReportesModule
-from modules.caja_module import CajaModule
-
-# ── Rutas ────────────────────────────────────────────────────────────────────
-DB_PATH     = SRC / "db" / "cuarto_ambulante.db"
+SRC = ROOT / "src"
+DB_PATH = SRC / "db" / "cuarto_ambulante.db"
 SCHEMA_PATH = SRC / "db" / "schema.sql"
+THEME_PATH = SRC / "ui" / "assets" / "theme.qss"
 SEEDS = [
     SRC / "db" / "seed.sql",
     SRC / "db" / "seed_ventas.sql",
 ]
 
 
-def preparar_base_de_datos(dal: DAL) -> None:
-    db_nueva = not DB_PATH.exists() or DB_PATH.stat().st_size == 0
+def _necesita_seeds(dal: DAL) -> bool:
+    """Decide si hay que cargar seeds revisando si la tabla pymes tiene filas.
 
+    Chequear solo si el archivo .db existe no basta: si un seed falla a
+    mitad de carga, el archivo queda creado pero las tablas vacías.
+    """
+    with dal.conexion() as conn:
+        count = conn.execute("SELECT COUNT(*) FROM pymes").fetchone()[0]
+    return count == 0
+
+
+def preparar_base_de_datos(dal: DAL) -> None:
     dal.inicializar(SCHEMA_PATH)
 
-    if db_nueva:
-        print("[main] Base de datos nueva — cargando seeds...")
+    if _necesita_seeds(dal):
+        print("[main] Base de datos vacía — cargando seeds...")
         with dal.conexion() as conn:
             for seed in SEEDS:
                 if seed.exists():
@@ -52,22 +59,20 @@ def preparar_base_de_datos(dal: DAL) -> None:
 
 def main() -> None:
     app = QApplication(sys.argv)
+    app.setStyleSheet(THEME_PATH.read_text(encoding="utf-8"))
     dal = DAL(db_path=DB_PATH)
     preparar_base_de_datos(dal)
 
-    # 1. Instanciar los módulos de lógica
     ventas_mod = VentasModule(dal)
     retiros_mod = RetirosModule(dal)
     reportes_mod = ReportesModule(dal)
     caja_mod = CajaModule(dal)
 
-    # 2. Pasar los módulos a las vistas (en lugar del dal)
-    # Ejemplo con MainWindow (puedes pasarle todos o solo los necesarios)
     ventana = MainWindow(
         ventas_mod=ventas_mod,
         retiros_mod=retiros_mod,
         reportesModule=reportes_mod,
-        caja_module=caja_mod
+        caja_module=caja_mod,
     )
     ventana.show()
     sys.exit(app.exec_())
@@ -75,4 +80,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-    

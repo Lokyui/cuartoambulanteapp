@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from db.dal import DAL
+from src.db.dal import DAL
 
 
 def test_registro_rechazos_historico_legacy(dal: DAL) -> None:

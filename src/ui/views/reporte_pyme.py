@@ -1,19 +1,19 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
+
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QWidget,
     QTableWidgetItem,
-    QHeaderView
+    QHeaderView,
 )
 
-from db.dal import DAL
 from src.modules.reportes_module import ReportesModule
 
-# Ruta al archivo .ui relativa a la raíz del proyecto (según tu main.py)
-UI_PATH = "src/ui/views/reporte_pyme.ui"
+UI_PATH = str(Path(__file__).parent / "reporte_pyme.ui")
 
 class ReportePymeView(QWidget):
     def __init__(self, module: ReportesModule):

@@ -1,5 +1,5 @@
 from typing import Any
-from db.dal import DAL
+from src.db.dal import DAL
 
 class RetirosModule:
     def __init__(self, dal: DAL):

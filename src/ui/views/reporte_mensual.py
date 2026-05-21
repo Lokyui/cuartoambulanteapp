@@ -1,15 +1,10 @@
-"""
-Carga el .ui generado por Qt Designer y conecta la lógica
-de consulta a través del DAL. No contiene SQL directo.
-"""
 from __future__ import annotations
- 
-import src.ui.resources_rc 
-import calendar
+
 from datetime import date
+from pathlib import Path
 from typing import Any
-import calendar
- 
+
+import src.ui.resources_rc  # noqa: F401
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
@@ -19,12 +14,10 @@ from PyQt5.QtWidgets import (
     QTableWidgetItem,
     QMessageBox,
 )
- 
-from db.dal import DAL
+
 from src.modules.reportes_module import ReportesModule
- 
-# Ruta al archivo .ui relativa a este módulo
-UI_PATH = "src/ui/views/reporte_mensual.ui"
+
+UI_PATH = str(Path(__file__).parent / "reporte_mensual.ui")
  
 # Meses en español para poblar el ComboBox
 MESES = [

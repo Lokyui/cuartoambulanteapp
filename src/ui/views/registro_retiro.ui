@@ -367,10 +367,8 @@
          <height>16777215</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+       <property name="class" stdset="0">
+        <string>btn-secundario</string>
        </property>
        <property name="text">
         <string>Cancelar</string>
@@ -391,10 +389,8 @@
          <height>16777215</height>
         </size>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: #C2EDB3;
-    border: 1px solid black;
-    border-radius: 4px;</string>
+       <property name="class" stdset="0">
+        <string>btn-primario</string>
        </property>
        <property name="text">
         <string>Guardar venta</string>

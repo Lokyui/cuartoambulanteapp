@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 
-from db.dal import DAL
+from src.db.dal import DAL
 
 
 def test_crear_paquete_con_fecha_entrega(dal: DAL) -> None:

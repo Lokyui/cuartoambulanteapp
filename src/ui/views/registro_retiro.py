@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog, QMessageBox
-from db.dal import DAL
+
+from src.db.dal import DAL
 from src.modules.retiros_module import RetirosModule
 
-UI_PATH = "src/ui/views/registro_retiro.ui"
+UI_PATH = str(Path(__file__).parent / "registro_retiro.ui")
 
 class RegistroRetiroDialog(QDialog):
     def __init__(self, module: RetirosModule, dal: DAL, parent=None):
