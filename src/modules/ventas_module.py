@@ -18,6 +18,33 @@ class VentasModule:
     def __init__(self, dal: DAL):
         self.dal = dal
 
+    def listar_pymes(self) -> list[dict[str, Any]]:
+        return self.dal.listar_pymes(solo_activas=True)
+
+    def resumen_del_dia(self, fecha: date) -> dict[str, Any]:
+        ventas = self.dal.listar_ventas(fecha=fecha)
+        pymes = {p["id"]: p["nombre"] for p in self.dal.listar_pymes()}
+
+        por_tienda: dict[str, int] = {}
+        for v in ventas:
+            nombre = pymes.get(v["pyme_id"], "—")
+            por_tienda[nombre] = por_tienda.get(nombre, 0) + v["total"]
+
+        recientes = [
+            {**v, "pyme_nombre": pymes.get(v["pyme_id"], "—")}
+            for v in ventas[:10]
+        ]
+
+        return {
+            "n_ventas": len(ventas),
+            "total": sum(v["total"] for v in ventas),
+            "sin_comision": sum(
+                v["total"] - v["iva"] - (v["comision_sumup"] or 0) for v in ventas
+            ),
+            "por_tienda": sorted(por_tienda.items(), key=lambda kv: -kv[1]),
+            "recientes": recientes,
+        }
+
     def calcular_totales(
         self,
         items: list[dict[str, Any]],

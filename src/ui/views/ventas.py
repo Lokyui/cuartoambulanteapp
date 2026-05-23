@@ -10,24 +10,11 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox, QTableWidgetItem, QWidget
 
 from src.modules.ventas_module import VentasModule
+from src.ui.utils import fecha_legible, formatear_clp
 
 UI_PATH = str(Path(__file__).parent / "ventas.ui")
 
-DIAS_ES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
-MESES_ES = [
-    "", "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
-]
-
 COL_PRODUCTO, COL_PRECIO, COL_CANTIDAD, COL_SUBTOTAL = 0, 1, 2, 3
-
-
-def _formatear_clp(monto: int) -> str:
-    return "$" + f"{int(monto):,}".replace(",", ".")
-
-
-def _fecha_legible(fecha: date) -> str:
-    return f"{DIAS_ES[fecha.weekday()]} {fecha.day} de {MESES_ES[fecha.month]}, {fecha.year}"
 
 
 class VentasView(QWidget):
@@ -42,19 +29,7 @@ class VentasView(QWidget):
         self._actualizar_resumen()
 
     def _configurar_widgets(self) -> None:
-        hoy = date.today()
-        self.dateEdit.setDate(hoy)
-        self.dateEdit.setCalendarPopup(True)
-        self.lblFechaLegible.setText(_fecha_legible(hoy))
-
-        self.cantidad.setMinimum(1)
-        self.cantidad.setMaximum(9999)
-        self.cantidad.setValue(1)
-
-        self.Valor.setMinimum(1)
-        self.Valor.setMaximum(9_999_999)
-        self.Valor.setValue(1)
-        self.Valor.setPrefix("$ ")
+        self.lblFechaLegible.setText(fecha_legible(date.today()))
 
         self.tablaProductos.setRowCount(0)
         self.tablaProductos.setColumnCount(4)
@@ -65,7 +40,7 @@ class VentasView(QWidget):
 
         self.rbEfectivo.setChecked(True)
 
-        self.txtComentario.setPlaceholderText("Comentario opcional (máx. 200 caracteres)")
+        self.txtComentario.setPlaceholderText("Nota breve sobre la venta (máx. 200 caracteres)")
 
     def _conectar_signals(self) -> None:
         self.btnAgregarProducto.clicked.connect(self._agregar_producto)
@@ -77,12 +52,12 @@ class VentasView(QWidget):
         self.rbEfectivo.toggled.connect(self._actualizar_resumen)
         self.rbSumUp.toggled.connect(self._actualizar_resumen)
         self.dateEdit.dateChanged.connect(
-            lambda qd: self.lblFechaLegible.setText(_fecha_legible(qd.toPyDate()))
+            lambda qd: self.lblFechaLegible.setText(fecha_legible(qd.toPyDate()))
         )
 
     def _poblar_pymes(self) -> None:
         self.cmbPyme.clear()
-        self.pymes = self.module.dal.listar_pymes()
+        self.pymes = self.module.listar_pymes()
         for p in self.pymes:
             self.cmbPyme.addItem(p["nombre"], p["id"])
 
@@ -92,7 +67,7 @@ class VentasView(QWidget):
         cantidad = int(self.cantidad.value())
 
         if not nombre:
-            QMessageBox.warning(self, "Falta el nombre", "Indicá el nombre del producto.")
+            QMessageBox.warning(self, "Falta el nombre", "Indica el nombre del producto.")
             return
         if precio <= 0:
             QMessageBox.warning(self, "Precio inválido", "El precio debe ser mayor a 0.")
@@ -103,11 +78,11 @@ class VentasView(QWidget):
         self.tablaProductos.insertRow(fila)
 
         item_prod = QTableWidgetItem(nombre)
-        item_prec = QTableWidgetItem(_formatear_clp(precio))
+        item_prec = QTableWidgetItem(formatear_clp(precio))
         item_prec.setData(Qt.UserRole, precio)
         item_cant = QTableWidgetItem(str(cantidad))
         item_cant.setData(Qt.UserRole, cantidad)
-        item_sub = QTableWidgetItem(_formatear_clp(subtotal))
+        item_sub = QTableWidgetItem(formatear_clp(subtotal))
         item_sub.setData(Qt.UserRole, subtotal)
 
         for col, it in enumerate((item_prod, item_prec, item_cant, item_sub)):
@@ -115,7 +90,7 @@ class VentasView(QWidget):
 
         self.txtNombreProducto.clear()
         self.cantidad.setValue(1)
-        self.Valor.setValue(1)
+        self.Valor.setValue(0)
         self.txtNombreProducto.setFocus()
 
         self._actualizar_resumen()
@@ -171,11 +146,11 @@ class VentasView(QWidget):
         self._set_resumen_celda(0, 1, pyme_nombre)
         self._set_resumen_celda(1, 1, metodo_label)
         self._set_resumen_celda(2, 1, productos_txt)
-        self._set_resumen_celda(3, 1, _formatear_clp(total))
-        self._set_resumen_celda(4, 1, _formatear_clp(iva))
-        self._set_resumen_celda(5, 1, _formatear_clp(comision) if comision is not None else "$0")
+        self._set_resumen_celda(3, 1, formatear_clp(total))
+        self._set_resumen_celda(4, 1, formatear_clp(iva))
+        self._set_resumen_celda(5, 1, formatear_clp(comision) if comision is not None else "$0")
 
-        self._set_total_celda(_formatear_clp(total))
+        self._set_total_celda(formatear_clp(total))
 
     def _set_resumen_celda(self, fila: int, col: int, texto: str) -> None:
         item = self.tablaResumen.item(fila, col)
@@ -212,6 +187,11 @@ class VentasView(QWidget):
             QMessageBox.warning(self, "Falta método", "Seleccioná efectivo o SumUp.")
             return
 
+        error = self._guardar_venta_validaciones()
+        if error:
+            QMessageBox.warning(self, "Comentario inválido", error)
+            return
+
         comentario = self.txtComentario.toPlainText().strip()
         datos = {
             "pyme_id": pyme_id,
@@ -230,11 +210,16 @@ class VentasView(QWidget):
         QMessageBox.information(self, "Éxito", "Venta registrada correctamente.")
         self._reset_form()
 
+    def _guardar_venta_validaciones(self) -> str | None:
+        if len(self.txtComentario.toPlainText()) > 200:
+            return "El comentario no puede superar 200 caracteres."
+        return None
+
     def _reset_form(self) -> None:
         self.tablaProductos.setRowCount(0)
         self.txtNombreProducto.clear()
         self.txtComentario.clear()
         self.cantidad.setValue(1)
-        self.Valor.setValue(1)
+        self.Valor.setValue(0)
         self.dateEdit.setDate(date.today())
         self._actualizar_resumen()
