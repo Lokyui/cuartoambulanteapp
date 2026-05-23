@@ -7,372 +7,270 @@
     <x>0</x>
     <y>0</y>
     <width>952</width>
-    <height>900</height>
+    <height>820</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Resumen diario</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
-   <property name="spacing">
-    <number>30</number>
-   </property>
-   <property name="leftMargin">
-    <number>30</number>
-   </property>
-   <property name="topMargin">
-    <number>30</number>
-   </property>
-   <property name="rightMargin">
-    <number>30</number>
-   </property>
-   <property name="bottomMargin">
-    <number>200</number>
-   </property>
+  <layout class="QVBoxLayout" name="layoutRoot">
+   <property name="spacing"><number>18</number></property>
+   <property name="leftMargin"><number>30</number></property>
+   <property name="topMargin"><number>30</number></property>
+   <property name="rightMargin"><number>30</number></property>
+   <property name="bottomMargin"><number>20</number></property>
+
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QHBoxLayout" name="layoutHeader">
+     <item>
+      <layout class="QVBoxLayout" name="layoutHeaderTexto">
+       <property name="spacing"><number>4</number></property>
+       <item>
+        <widget class="QLabel" name="lblTitulo">
+         <property name="font"><font><pointsize>17</pointsize></font></property>
+         <property name="text"><string>Cierre de caja</string></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblFechaLegible">
+         <property name="font"><font><pointsize>12</pointsize></font></property>
+         <property name="text"><string>Lunes 27 de abril, 2026</string></property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+      </spacer>
+     </item>
      <item alignment="Qt::AlignTop">
-      <widget class="QLabel" name="label_10">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Noto Sans CJK TC</family>
-         <pointsize>17</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Resumen diario</string>
-       </property>
+      <widget class="QLabel" name="lblFechaTexto">
+       <property name="text"><string>Ver día:</string></property>
+       <property name="font"><font><pointsize>11</pointsize></font></property>
       </widget>
      </item>
      <item alignment="Qt::AlignTop">
-      <widget class="QLabel" name="label">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Noto Sans CJK TC</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Lunes 27 de abril, 2026</string>
-       </property>
+      <widget class="FechaEdit" name="fechaEdit"/>
+     </item>
+    </layout>
+   </item>
+
+   <item>
+    <layout class="QHBoxLayout" name="layoutTarjetas">
+     <property name="spacing"><number>14</number></property>
+
+     <item>
+      <widget class="QGroupBox" name="tarjetaEfectivo">
+       <property name="minimumSize"><size><width>0</width><height>90</height></size></property>
+       <property name="maximumSize"><size><width>16777215</width><height>110</height></size></property>
+       <property name="class" stdset="0"><string>tarjeta-amarillo</string></property>
+       <property name="title"><string/></property>
+       <layout class="QVBoxLayout">
+        <property name="leftMargin"><number>16</number></property>
+        <property name="topMargin"><number>12</number></property>
+        <property name="rightMargin"><number>16</number></property>
+        <property name="bottomMargin"><number>12</number></property>
+        <property name="spacing"><number>4</number></property>
+        <item>
+         <widget class="QLabel">
+          <property name="font"><font><pointsize>11</pointsize></font></property>
+          <property name="text"><string>Efectivo</string></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblTotalEfectivo">
+          <property name="class" stdset="0"><string>display</string></property>
+          <property name="text"><string>$0</string></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblNEfectivo">
+          <property name="font"><font><pointsize>9</pointsize></font></property>
+          <property name="text"><string>0 ventas</string></property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QGroupBox" name="tarjetaSumUp">
+       <property name="minimumSize"><size><width>0</width><height>90</height></size></property>
+       <property name="maximumSize"><size><width>16777215</width><height>110</height></size></property>
+       <property name="class" stdset="0"><string>tarjeta-azul</string></property>
+       <property name="title"><string/></property>
+       <layout class="QVBoxLayout">
+        <property name="leftMargin"><number>16</number></property>
+        <property name="topMargin"><number>12</number></property>
+        <property name="rightMargin"><number>16</number></property>
+        <property name="bottomMargin"><number>12</number></property>
+        <property name="spacing"><number>4</number></property>
+        <item>
+         <widget class="QLabel">
+          <property name="font"><font><pointsize>11</pointsize></font></property>
+          <property name="text"><string>SumUp</string></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblTotalSumUp">
+          <property name="class" stdset="0"><string>display</string></property>
+          <property name="text"><string>$0</string></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblNSumUp">
+          <property name="font"><font><pointsize>9</pointsize></font></property>
+          <property name="text"><string>0 ventas</string></property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QGroupBox" name="tarjetaBruto">
+       <property name="minimumSize"><size><width>0</width><height>90</height></size></property>
+       <property name="maximumSize"><size><width>16777215</width><height>110</height></size></property>
+       <property name="class" stdset="0"><string>tarjeta-verde</string></property>
+       <property name="title"><string/></property>
+       <layout class="QVBoxLayout">
+        <property name="leftMargin"><number>16</number></property>
+        <property name="topMargin"><number>12</number></property>
+        <property name="rightMargin"><number>16</number></property>
+        <property name="bottomMargin"><number>12</number></property>
+        <property name="spacing"><number>4</number></property>
+        <item>
+         <widget class="QLabel">
+          <property name="font"><font><pointsize>11</pointsize></font></property>
+          <property name="text"><string>Total bruto</string></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblTotalBruto">
+          <property name="class" stdset="0"><string>display</string></property>
+          <property name="text"><string>$0</string></property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QGroupBox" name="tarjetaNeto">
+       <property name="minimumSize"><size><width>0</width><height>90</height></size></property>
+       <property name="maximumSize"><size><width>16777215</width><height>110</height></size></property>
+       <property name="class" stdset="0"><string>tarjeta-naranja</string></property>
+       <property name="title"><string/></property>
+       <layout class="QVBoxLayout">
+        <property name="leftMargin"><number>16</number></property>
+        <property name="topMargin"><number>12</number></property>
+        <property name="rightMargin"><number>16</number></property>
+        <property name="bottomMargin"><number>12</number></property>
+        <property name="spacing"><number>4</number></property>
+        <item>
+         <widget class="QLabel">
+          <property name="font"><font><pointsize>11</pointsize></font></property>
+          <property name="text"><string>Neto (sin IVA ni comisión)</string></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblNeto">
+          <property name="class" stdset="0"><string>display</string></property>
+          <property name="text"><string>$0</string></property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>
    </item>
+
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>70</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Noto Sans CJK TC</family>
-         <pointsize>14</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="class" stdset="0">
-        <string>banner</string>
-       </property>
-       <property name="text">
-        <string>Total ingresos</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTableWidget" name="tableWidget">
-       <property name="class" stdset="0">
-        <string>tabla-caja</string>
-       </property>
-       <attribute name="horizontalHeaderVisible">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="horizontalHeaderStretchLastSection">
-        <bool>true</bool>
-       </attribute>
-       <attribute name="verticalHeaderVisible">
-        <bool>true</bool>
-       </attribute>
-       <attribute name="verticalHeaderCascadingSectionResizes">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderHighlightSections">
-        <bool>true</bool>
-       </attribute>
-       <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderStretchLastSection">
-        <bool>true</bool>
-       </attribute>
-       <row>
-        <property name="text">
-         <string>Total tienda</string>
-        </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>IVA</string>
-        </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>Total SumUp</string>
-        </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="textAlignment">
-         <set>AlignLeading|AlignTop</set>
-        </property>
-       </row>
-       <column>
-        <property name="text">
-         <string>Total ingresos</string>
-        </property>
-       </column>
-       <item row="0" column="0">
-        <property name="text">
-         <string>$4.000</string>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="textAlignment">
-         <set>AlignTrailing|AlignVCenter</set>
-        </property>
+    <widget class="QTabWidget" name="tabs">
+     <property name="currentIndex"><number>0</number></property>
+
+     <widget class="QWidget" name="tabResumen">
+      <attribute name="title"><string>Resumen</string></attribute>
+      <layout class="QVBoxLayout">
+       <property name="spacing"><number>10</number></property>
+       <item>
+        <widget class="QLabel">
+         <property name="font"><font><pointsize>12</pointsize><weight>75</weight><bold>true</bold></font></property>
+         <property name="text"><string>Cierre del día</string></property>
+        </widget>
        </item>
-       <item row="1" column="0">
-        <property name="text">
-         <string>$760</string>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="textAlignment">
-         <set>AlignTrailing|AlignVCenter</set>
-        </property>
+       <item>
+        <widget class="QTableWidget" name="tablaResumen">
+         <attribute name="horizontalHeaderVisible"><bool>false</bool></attribute>
+         <attribute name="horizontalHeaderStretchLastSection"><bool>true</bool></attribute>
+         <attribute name="verticalHeaderVisible"><bool>false</bool></attribute>
+         <property name="showGrid"><bool>false</bool></property>
+         <column><property name="text"><string/></property></column>
+         <column><property name="text"><string/></property></column>
+        </widget>
        </item>
-       <item row="2" column="0">
-        <property name="text">
-         <string>$69</string>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="textAlignment">
-         <set>AlignTrailing|AlignVCenter</set>
-        </property>
+      </layout>
+     </widget>
+
+     <widget class="QWidget" name="tabEfectivo">
+      <attribute name="title"><string>Efectivo</string></attribute>
+      <layout class="QVBoxLayout">
+       <property name="spacing"><number>10</number></property>
+       <item>
+        <widget class="QLabel" name="lblEncEfectivo">
+         <property name="font"><font><pointsize>12</pointsize><weight>75</weight><bold>true</bold></font></property>
+         <property name="text"><string>Ventas en efectivo</string></property>
+        </widget>
        </item>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTableWidget" name="tableWidget_2">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="class" stdset="0">
-        <string>tabla-caja</string>
-       </property>
-       <attribute name="horizontalHeaderVisible">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="horizontalHeaderStretchLastSection">
-        <bool>true</bool>
-       </attribute>
-       <attribute name="verticalHeaderVisible">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderCascadingSectionResizes">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderHighlightSections">
-        <bool>true</bool>
-       </attribute>
-       <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderStretchLastSection">
-        <bool>true</bool>
-       </attribute>
-       <row>
-        <property name="text">
-         <string>Total SumUp</string>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-       </row>
-       <column>
-        <property name="text">
-         <string>Nueva columna</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>Nueva columna</string>
-        </property>
-       </column>
-       <item row="0" column="0">
-        <property name="text">
-         <string>Total final</string>
-        </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>14</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
+       <item>
+        <widget class="QTableWidget" name="tablaEfectivo">
+         <attribute name="horizontalHeaderStretchLastSection"><bool>true</bool></attribute>
+         <attribute name="verticalHeaderVisible"><bool>false</bool></attribute>
+         <column><property name="text"><string>Tienda</string></property></column>
+         <column><property name="text"><string>Artículo</string></property></column>
+         <column><property name="text"><string>Cant.</string></property></column>
+         <column><property name="text"><string>Total</string></property></column>
+        </widget>
        </item>
-       <item row="0" column="1">
-        <property name="text">
-         <string>$3.171</string>
-        </property>
-        <property name="font">
-         <font>
-          <family>Noto Sans CJK TC</family>
-          <pointsize>14</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="textAlignment">
-         <set>AlignTrailing|AlignVCenter</set>
-        </property>
+      </layout>
+     </widget>
+
+     <widget class="QWidget" name="tabSumUp">
+      <attribute name="title"><string>SumUp</string></attribute>
+      <layout class="QVBoxLayout">
+       <property name="spacing"><number>10</number></property>
+       <item>
+        <widget class="QLabel" name="lblEncSumUp">
+         <property name="font"><font><pointsize>12</pointsize><weight>75</weight><bold>true</bold></font></property>
+         <property name="text"><string>Ventas con SumUp</string></property>
+        </widget>
        </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit_11">
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Noto Sans CJK HK</family>
-         <pointsize>17</pointsize>
-        </font>
-       </property>
-       <property name="plainText">
-        <string>Comentarios</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTextEdit" name="textEdit_3"/>
-     </item>
-     <item alignment="Qt::AlignHCenter">
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>150</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="class" stdset="0">
-        <string>btn-primario</string>
-       </property>
-       <property name="text">
-        <string>Imprimir reporte</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+       <item>
+        <widget class="QTableWidget" name="tablaSumUp">
+         <attribute name="horizontalHeaderStretchLastSection"><bool>true</bool></attribute>
+         <attribute name="verticalHeaderVisible"><bool>false</bool></attribute>
+         <column><property name="text"><string>Tienda</string></property></column>
+         <column><property name="text"><string>Artículo</string></property></column>
+         <column><property name="text"><string>Cant.</string></property></column>
+         <column><property name="text"><string>Total</string></property></column>
+         <column><property name="text"><string>Comisión</string></property></column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FechaEdit</class>
+   <extends>QDateEdit</extends>
+   <header>src.ui.utils</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

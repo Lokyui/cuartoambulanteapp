@@ -126,14 +126,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QDateEdit" name="dateEdit">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>30</height>
-          </size>
-         </property>
-        </widget>
+        <widget class="FechaEdit" name="dateEdit"/>
        </item>
       </layout>
      </item>
@@ -196,26 +189,6 @@
            <height>30</height>
           </size>
          </property>
-         <item>
-          <property name="text">
-           <string>A1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>A2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>B1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>B2</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
@@ -393,7 +366,7 @@
         <string>btn-primario</string>
        </property>
        <property name="text">
-        <string>Guardar venta</string>
+        <string>Guardar paquete</string>
        </property>
       </widget>
      </item>
@@ -401,6 +374,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FechaEdit</class>
+   <extends>QDateEdit</extends>
+   <header>src.ui.utils</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
