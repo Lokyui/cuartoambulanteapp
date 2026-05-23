@@ -47,9 +47,43 @@ Dependencias necesarias:
 3. SQLite3
 
 Para configurar el entorno de desarrollo:
+
 1. Clonar el repositorio.
-2. Instalar dependencias mediante pip install -r requirements.txt.
-3. Ejecutar el archivo main.py para iniciar la aplicación.
+
+2. Crear un entorno virtual. Aísla las dependencias del proyecto y evita
+   instalarlas en el Python del sistema:
+
+   ```bash
+   python -m venv .venv
+   ```
+
+3. Activar el entorno virtual:
+
+   - En Windows (PowerShell):
+
+     ```powershell
+     .\.venv\Scripts\Activate.ps1
+     ```
+
+   - En Linux / macOS:
+
+     ```bash
+     source .venv/bin/activate
+     ```
+
+   Una vez activado, la consola muestra `(.venv)` al inicio de la línea.
+
+4. Instalar las dependencias dentro del entorno virtual:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+5. Ejecutar la aplicación:
+
+   ```bash
+   python main.py
+   ```
 
 ## Funcionalidades Implementadas
 1. Dashboard: Resumen automatizado de ventas totales y transacciones por pyme.

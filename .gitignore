@@ -1,4 +1,10 @@
 __pycache__/
 *.pyc
 *.db
+
+# Entorno virtual — nunca se sube; es propio de cada máquina.
+# Se recrea desde requirements.txt.
+.venv/
+venv/
+env/
 .claude/
