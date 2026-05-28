@@ -5,69 +5,54 @@ from pathlib import Path
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog, QMessageBox
 
-from src.db.dal import DAL
 from src.modules.retiros_module import RetirosModule
 
 UI_PATH = str(Path(__file__).parent / "registro_retiro.ui")
 
+UBICACIONES_BODEGA = [f"{letra}{num}" for letra in "ABCD" for num in range(1, 5)] + ["ESCALERA", "OTRO"]
+
+
 class RegistroRetiroDialog(QDialog):
-    def __init__(self, module: RetirosModule, dal: DAL, parent=None):
+    def __init__(self, module: RetirosModule, parent=None):
         super().__init__(parent)
         self.module = module
-        self.dal = dal
         uic.loadUi(UI_PATH, self)
-        
-        # Poblar ComboBoxes con datos reales de la BD
+
         self._cargar_datos_iniciales()
-        
-        # Conexiones de botones según tu .ui
-        self.pushButton_5.clicked.connect(self.guardar_paquete) # Botón "Guardar venta"
-        self.pushButton_6.clicked.connect(self.reject)         # Botón "Cancelar"
+
+        self.pushButton_5.clicked.connect(self.guardar_paquete)
+        self.pushButton_6.clicked.connect(self.reject)
 
     def _cargar_datos_iniciales(self):
-        """Carga PYMEs y Personal desde el DAL."""
-        # Cargar PYMEs en comboBox
-        pymes = self.dal.listar_pymes(solo_activas=True)
         self.comboBox.clear()
-        for p in pymes:
+        for p in self.module.listar_pymes():
             self.comboBox.addItem(p["nombre"], p["id"])
-            
-        # Cargar Personal en comboBox_3 (Recibido por)
-        personal = self.dal.listar_personal(solo_activos=True)
+
+        self.comboBox_2.clear()
+        self.comboBox_2.addItems(UBICACIONES_BODEGA)
+
         self.comboBox_3.clear()
-        for pers in personal:
+        for pers in self.module.listar_personal():
             self.comboBox_3.addItem(pers["nombre_display"], pers["id"])
 
     def guardar_paquete(self):
-        """Extrae datos y llama a crear_paquete en el DAL."""
-        # 1. Extraer valores del formulario
-        pyme_id = self.comboBox.currentData()
-        fecha_llegada = self.dateEdit.date().toPyDate()
         destinatario = self.lineEdit.text().strip()
-        ubicacion = self.comboBox_2.currentText() # Ubicación en bodega (A1, A2...)
-        recibido_por_id = self.comboBox_3.currentData()
-        descripcion = self.textEdit_3.toPlainText().strip()
-        
-        # Determinar estado de pago desde RadioButtons
-        estado_pago = "pagado" if self.radioButton.isChecked() else "por_cobrar"
-        
-        # 2. Validación básica
         if not destinatario:
             QMessageBox.warning(self, "Validación", "El nombre del destinatario es obligatorio.")
             return
 
-        # 3. Guardar en BD usando crear_paquete del dal.py
+        datos = {
+            "pyme_id": self.comboBox.currentData(),
+            "fecha_llegada": self.dateEdit.date().toPyDate(),
+            "destinatario": destinatario,
+            "ubicacion": self.comboBox_2.currentText(),
+            "estado_pago": "pagado" if self.radioButton.isChecked() else "por_cobrar",
+            "recibido_por": self.comboBox_3.currentData(),
+            "descripcion": self.textEdit_3.toPlainText().strip(),
+        }
+
         try:
-            self.dal.crear_paquete(
-                fecha_llegada=fecha_llegada,
-                pyme_remitente_id=pyme_id,
-                nombre_destinatario=destinatario,
-                ubicacion_bodega=ubicacion,
-                estado_pago=estado_pago,
-                recibido_por=recibido_por_id,
-                descripcion=descripcion,
-                estado="activo" # Estado inicial por defecto
-            )
-            self.accept() # Cierra el diálogo con éxito
+            self.module.registrar_ingreso(datos)
+            self.accept()
         except Exception as e:
             QMessageBox.critical(self, "Error", f"No se pudo guardar el paquete:\n{e}")

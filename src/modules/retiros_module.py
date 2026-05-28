@@ -1,13 +1,26 @@
+from datetime import date
 from typing import Any
+
 from src.db.dal import DAL
+
 
 class RetirosModule:
     def __init__(self, dal: DAL):
         self.dal = dal
 
+    def listar_todos(self) -> list[dict[str, Any]]:
+        return self.dal.listar_paquetes()
+
+    def listar_pendientes(self) -> list[dict[str, Any]]:
+        return self.dal.listar_paquetes(estado="activo")
+
+    def listar_pymes(self) -> list[dict[str, Any]]:
+        return self.dal.listar_pymes(solo_activas=True)
+
+    def listar_personal(self) -> list[dict[str, Any]]:
+        return self.dal.listar_personal(solo_activos=True)
+
     def registrar_ingreso(self, datos: dict[str, Any]) -> int:
-        """Valida y registra un nuevo paquete en bodega."""
-        # Regla de negocio: El estado inicial siempre es 'activo' 
         return self.dal.crear_paquete(
             fecha_llegada=datos["fecha_llegada"],
             pyme_remitente_id=datos["pyme_id"],
@@ -16,9 +29,14 @@ class RetirosModule:
             estado_pago=datos["estado_pago"],
             recibido_por=datos["recibido_por"],
             descripcion=datos.get("descripcion"),
-            estado="activo"
+            estado="activo",
         )
 
-    def listar_pendientes(self) -> list[dict[str, Any]]:
-        """Obtiene solo los paquetes que no han sido entregados[cite: 18]."""
-        return self.dal.listar_paquetes(estado="activo")
+    def marcar_entregado(self, paquete_id: int, fecha_entrega: date | None = None) -> bool:
+        return self.dal.actualizar_paquete(
+            paquete_id,
+            {
+                "estado": "entregado",
+                "fecha_entrega": fecha_entrega or date.today(),
+            },
+        )

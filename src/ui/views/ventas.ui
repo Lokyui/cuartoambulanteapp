@@ -151,14 +151,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QDateEdit" name="dateEdit">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
+        <widget class="FechaEdit" name="dateEdit"/>
        </item>
        <item>
         <widget class="QLabel" name="label_21">
@@ -341,16 +334,13 @@
                <pointsize>11</pointsize>
               </font>
              </property>
-             <property name="class" stdset="0">
-              <string>input-borde</string>
-             </property>
              <property name="placeholderText">
               <string>Nombre producto</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="cantidad">
+            <widget class="CantidadSpinBox" name="cantidad">
              <property name="minimumSize">
               <size>
                <width>100</width>
@@ -366,7 +356,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="Valor">
+            <widget class="MontoSpinBox" name="Valor">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -471,6 +461,43 @@
             </size>
            </property>
           </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_comentario">
+         <property name="spacing"><number>2</number></property>
+         <item>
+          <widget class="QLabel" name="label_24">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Noto Sans CJK TC</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Comentario</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="txtComentario">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>72</height>
+            </size>
+           </property>
+           <property name="class" stdset="0">
+            <string>comentario-compacto</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -856,28 +883,25 @@
      </item>
     </layout>
    </item>
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout_6">
-     <item>
-      <widget class="QLabel" name="label_24">
-       <property name="font">
-        <font>
-         <family>Noto Sans CJK TC</family>
-         <pointsize>13</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Comentarios</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTextEdit" name="txtComentario"/>
-     </item>
-    </layout>
-   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FechaEdit</class>
+   <extends>QDateEdit</extends>
+   <header>src.ui.utils</header>
+  </customwidget>
+  <customwidget>
+   <class>MontoSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>src.ui.utils</header>
+  </customwidget>
+  <customwidget>
+   <class>CantidadSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>src.ui.utils</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../../assets/icons/icons.qrc"/>
  </resources>

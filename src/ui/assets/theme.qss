@@ -1,21 +1,7 @@
-/* =========================================================
-   THEME.QSS — Estilos centralizados de la aplicación
-   ---------------------------------------------------------
-   Se carga una sola vez desde main.py con app.setStyleSheet.
-   Cualquier cambio de color, padding, border, hover, etc.
-   se hace acá. NO tocar el .ui ni el .py para estilos.
-
-   Convenciones:
-   - #objectName        → apunta a UN widget concreto
-   - QWidget            → afecta a TODOS los widgets de esa clase
-   - [class="xxx"]      → dynamic property declarada en el .ui
-                          (en Designer: "Property editor" + → class)
-   ========================================================= */
-
-
-/* =========================================================
-   GLOBAL — fondo y reset
-   ========================================================= */
+/* Tipografía base */
+QWidget {
+    font-family: 'Noto Sans CJK TC';
+}
 
 QWidget#Form,
 QMainWindow {
@@ -23,20 +9,15 @@ QMainWindow {
 }
 
 
-/* =========================================================
-   SIDEBAR — botones de navegación de main_window
-   ========================================================= */
-
+/* Sidebar */
 QFrame#sidebar {
     background-color: #DDDDDD;
 }
-
 QFrame#sidebar QPushButton {
     background-color: transparent;
     border: none;
     text-align: left;
-    padding-left: 10px;
-    font-family: 'Noto Sans CJK TC';
+    padding: 8px 16px;
     font-size: 12pt;
 }
 QFrame#sidebar QPushButton:hover {
@@ -44,92 +25,49 @@ QFrame#sidebar QPushButton:hover {
 }
 QFrame#sidebar QPushButton:pressed {
     background-color: #CFCFCF;
-    padding-left: 12px;
 }
 
 
-/* =========================================================
-   BOTONES — variantes por dynamic property "class"
-   ---------------------------------------------------------
-   En Designer: agregar property dinámica 'class' al QPushButton
-   con uno de estos valores:
-     "btn-primario"   → verde (Guardar, Exportar)
-     "btn-info"       → azul (Generar reporte)
-     "btn-secundario" → gris (Cancelar, Agregar producto, etc.)
-   ========================================================= */
-
+/* Botones por dynamic property "class" */
 QPushButton[class="btn-primario"] {
     background-color: #C2EDB3;
     border: 1px solid black;
     border-radius: 4px;
 }
-QPushButton[class="btn-primario"]:hover {
-    background-color: #B0E09F;
-}
-QPushButton[class="btn-primario"]:pressed {
-    background-color: #9DCB8C;
-    padding-top: 2px;
-}
+QPushButton[class="btn-primario"]:hover  { background-color: #B0E09F; }
+QPushButton[class="btn-primario"]:pressed { background-color: #9DCB8C; padding-top: 2px; }
 
 QPushButton[class="btn-info"] {
     background-color: #B3C7ED;
     border: 1px solid black;
     border-radius: 4px;
 }
-QPushButton[class="btn-info"]:hover {
-    background-color: #A0B6E0;
-}
-QPushButton[class="btn-info"]:pressed {
-    background-color: #8DA3CC;
-    padding-top: 2px;
-}
+QPushButton[class="btn-info"]:hover  { background-color: #A0B6E0; }
+QPushButton[class="btn-info"]:pressed { background-color: #8DA3CC; padding-top: 2px; }
 
 QPushButton[class="btn-secundario"] {
     background-color: #F6F6F6;
     border: 1px solid black;
     border-radius: 4px;
 }
-QPushButton[class="btn-secundario"]:hover {
-    background-color: #EAEAEA;
-}
-QPushButton[class="btn-secundario"]:pressed {
-    background-color: #CFCFCF;
-    padding-top: 2px;
-}
-
-
-/* =========================================================
-   BOTONES DEL DASHBOARD — "Registrar venta" y "Nuevo retiro"
-   (mismo look que btn-secundario pero con texto a la derecha)
-   ========================================================= */
+QPushButton[class="btn-secundario"]:hover  { background-color: #EAEAEA; }
+QPushButton[class="btn-secundario"]:pressed { background-color: #CFCFCF; padding-top: 2px; }
 
 QPushButton[class="btn-accion-dashboard"] {
     background-color: #F6F6F6;
     border: 1px solid black;
     border-radius: 4px;
-    text-align: right;
+    padding: 4px 14px;
 }
-QPushButton[class="btn-accion-dashboard"]:hover {
-    background-color: #EAEAEA;
-}
-QPushButton[class="btn-accion-dashboard"]:pressed {
-    background-color: #CFCFCF;
-    padding-top: 2px;
-}
+QPushButton[class="btn-accion-dashboard"]:hover  { background-color: #EAEAEA; }
+QPushButton[class="btn-accion-dashboard"]:pressed { background-color: #CFCFCF; padding-top: 2px; }
 
 
-/* =========================================================
-   TARJETAS DE TOTALES (QGroupBox de colores)
-   ---------------------------------------------------------
-   Cada tarjeta lleva una dynamic property "class" con el color.
-   Forma redondeada y sin borde — el color es lo único distintivo.
-   ========================================================= */
-
+/* Tarjetas de totales */
 QGroupBox[class^="tarjeta-"] {
     border: transparent;
     border-radius: 8px;
 }
-
 QGroupBox[class="tarjeta-verde"]       { background-color: #C2EDB3; }
 QGroupBox[class="tarjeta-azul"]        { background-color: #B3C7ED; }
 QGroupBox[class="tarjeta-amarillo"]    { background-color: #F4DE87; }
@@ -138,46 +76,31 @@ QGroupBox[class="tarjeta-lila"]        { background-color: #EDD2F3; }
 QGroupBox[class="tarjeta-verde-claro"] { background-color: #D4EDB3; }
 QGroupBox[class="tarjeta-rosa"]        { background-color: #F3B3B3; }
 
+QGroupBox[class^="tarjeta-"] QLabel,
 QGroupBox[class^="tarjeta-"] QTextEdit,
 QGroupBox[class^="tarjeta-"] QPlainTextEdit {
     background-color: transparent;
     border: none;
 }
 
-
-/* =========================================================
-   LABELS DE DISPLAY — valores numéricos dentro de tarjetas
-   (los QLabel que muestran "$150.000", "40", etc.)
-   ========================================================= */
-
 QLabel[class="display"] {
-    background-color: transparent;
-    font-family: 'Noto Sans CJK TC';
-    font-size: 14pt;
+    font-size: 16pt;
     font-weight: bold;
-    qproperty-alignment: AlignCenter;
 }
 
 
-/* =========================================================
-   BANNER — encabezado grande "Total ingresos" (resumen_caja)
-   ========================================================= */
-
+/* Banner */
 QLabel[class="banner"] {
     background-color: #D9D9D9;
     border: transparent;
 }
 
 
-/* =========================================================
-   TABLAS — header común a todas las QTableWidget
-   ========================================================= */
-
+/* Tablas */
 QTableWidget {
     background-color: white;
     color: black;
 }
-
 QHeaderView::section {
     background-color: #E9E9E9;
     color: black;
@@ -186,11 +109,6 @@ QHeaderView::section {
     font-size: 14px;
     padding: 6px;
 }
-
-
-/* =========================================================
-   TABLAS DEL RESUMEN DE CAJA — fondo gris claro, sin grid
-   ========================================================= */
 
 QTableWidget[class="tabla-caja"] {
     background-color: #EFEFEF;
@@ -209,10 +127,7 @@ QTableWidget[class="tabla-caja"] QHeaderView::section {
 }
 
 
-/* =========================================================
-   FRAMES DE PEDIDO — cards de retiros pendientes
-   ========================================================= */
-
+/* Cards de pedido (vista retiros) */
 QFrame[class="frame-pedido"] {
     background-color: #EFEFEF;
     border: 1px solid black;
@@ -225,29 +140,21 @@ QFrame[class="frame-pedido"] QPlainTextEdit {
 }
 
 
-/* =========================================================
-   SCROLL AREA — sin borde por defecto
-   ========================================================= */
+/* Cards de retiro pendiente (sidebar derecha del dashboard) */
+QFrame[class="card-retiro"] {
+    background-color: #F0F0F0;
+    border: none;
+    border-radius: 6px;
+}
+QFrame[class="card-retiro"] QLabel {
+    background-color: transparent;
+}
+
 
 QScrollArea {
     border: transparent;
 }
 
-
-/* =========================================================
-   PLACEHOLDERS RETIROS PENDIENTES — cards estáticas del
-   dashboard (gris claro sin borde)
-   ========================================================= */
-
-QLabel[class="retiro-pendiente"] {
-    background-color: #F0F0F0;
-    border: transparent;
-}
-
-
-/* =========================================================
-   SEPARADORES (Line) — divisor horizontal oscuro
-   ========================================================= */
 
 Line[class="separator-dark"] {
     min-height: 1px;
@@ -257,21 +164,37 @@ Line[class="separator-dark"] {
 }
 
 
-/* =========================================================
-   INPUTS — campos de búsqueda con borde
-   ========================================================= */
-
-QLineEdit[class="input-borde"],
-QTextEdit[class="input-borde"] {
-    border: 1px solid black;
+/* Inputs unificados: todos los campos de formulario comparten estilo */
+QLineEdit,
+QComboBox,
+QTextEdit,
+QPlainTextEdit,
+QDateEdit,
+QSpinBox {
+    border: 1px solid #888;
     border-radius: 4px;
-    padding: 2px 6px;
+    padding: 4px 8px;
+    background-color: white;
+}
+QLineEdit:focus,
+QComboBox:focus,
+QTextEdit:focus,
+QPlainTextEdit:focus,
+QDateEdit:focus,
+QSpinBox:focus {
+    border: 1px solid #5A9E63;
+}
+QSpinBox::up-button,
+QSpinBox::down-button {
+    width: 0;
+    border: none;
+    background: transparent;
 }
 
+QTextEdit[class="comentario-compacto"] {
+    font-size: 10pt;
+}
 
-/* =========================================================
-   FRAME RESUMEN — caja gris del panel "Resumen" en ventas
-   ========================================================= */
 
 QFrame[class="panel-resumen"] {
     background-color: #D9D9D9;
@@ -280,4 +203,90 @@ QFrame[class="panel-resumen"] {
 QFrame[class="panel-resumen"] QTableWidget {
     background-color: transparent;
     border: transparent;
+}
+
+
+QCalendarWidget QToolButton {
+    background-color: #F0F0F0;
+    color: black;
+    border: none;
+    padding: 4px 8px;
+}
+QCalendarWidget QToolButton:hover {
+    background-color: #E0E0E0;
+}
+QCalendarWidget QAbstractItemView:enabled {
+    background-color: white;
+    color: black;
+    selection-background-color: #C2EDB3;
+    selection-color: black;
+}
+
+
+/* Tabs (cierre de caja) */
+QTabWidget::pane {
+    border: 1px solid #BBB;
+    border-radius: 4px;
+    top: -1px;
+    background: white;
+}
+QTabBar::tab {
+    background: #EFEFEF;
+    border: 1px solid #BBB;
+    padding: 6px 18px;
+    min-width: 90px;
+    margin-right: 2px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+QTabBar::tab:selected {
+    background: white;
+    border-bottom: 1px solid white;
+    font-weight: bold;
+}
+QTabBar::tab:hover:!selected {
+    background: #E0E0E0;
+}
+
+
+/* Card vacía para estados sin datos en dashboard */
+QFrame[class="card-vacia"] {
+    background-color: #F6F6F6;
+    border: 1px dashed #BBB;
+    border-radius: 6px;
+}
+QFrame[class="card-vacia"] QLabel {
+    background: transparent;
+    color: #777;
+    font-style: italic;
+}
+
+
+/* Card de paquete (vista retiros) */
+QFrame[class="frame-paquete"] {
+    background-color: #D9D9D9;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+QFrame[class="frame-paquete"] QLabel {
+    border: none;
+    background: transparent;
+    color: black;
+}
+QLabel[class="paquete-nombre"] {
+    font-size: 16px;
+    font-weight: bold;
+}
+QLabel[class="paquete-ubicacion"] {
+    font-size: 14px;
+    font-weight: bold;
+}
+QLabel[class="paquete-texto"] {
+    font-size: 14px;
+}
+QPushButton[class="btn-entregado"] {
+    background-color: #D9F5DD;
+    border: 1px solid #5A9E63;
+    border-radius: 4px;
+    padding: 6px 10px;
 }
