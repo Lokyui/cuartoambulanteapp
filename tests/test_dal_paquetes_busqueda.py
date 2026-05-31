@@ -1,159 +1,164 @@
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import date
 
 from src.db.dal import DAL
 
 
-def _setup_paquetes_demo(dal: DAL) -> tuple[int, int]:
-    pyme_id = dal.crear_pyme("Pyme Test")
+def _setup(dal: DAL) -> tuple[int, int]:
+    pyme_id = dal.crear_pyme("BADTRIP")
     personal_id = dal.crear_personal("Cajero", "cajero")
     return pyme_id, personal_id
 
 
-def test_buscar_paquetes_por_nombre_parcial_case_insensitive(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    dal.crear_paquete(
-        date.today(), pyme_id, "Alejandro Jara", "A1", "pagado", personal_id
-    )
-    dal.crear_paquete(
-        date.today(), pyme_id, "Carolina Silva", "B2", "pagado", personal_id
-    )
-    dal.crear_paquete(
-        date.today(), pyme_id, "Maria Paz", "C3", "por_cobrar", personal_id
-    )
+def test_busqueda_por_destinatario_case_insensitive(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Alejandro Jara", "A1", "pagado", personal_id)
+    dal.crear_paquete(date.today(), pyme_id, "Carolina Silva", "B2", "pagado", personal_id)
 
-    resultados = dal.buscar_paquetes_por_nombre("ALE")
+    resultados = dal.listar_paquetes(busqueda="ALE")
 
     assert len(resultados) == 1
     assert resultados[0]["nombre_destinatario"] == "Alejandro Jara"
 
 
-def test_buscar_paquetes_por_nombre_match_intermedio(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    dal.crear_paquete(
-        date.today(), pyme_id, "Alejandro Jara", "A1", "pagado", personal_id
-    )
-    dal.crear_paquete(
-        date.today(), pyme_id, "Carolina Silva", "B2", "pagado", personal_id
-    )
+def test_busqueda_match_intermedio(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Alejandro", "A1", "pagado", personal_id)
+    dal.crear_paquete(date.today(), pyme_id, "Carolina", "B2", "pagado", personal_id)
 
-    resultados = dal.buscar_paquetes_por_nombre("rol")
+    resultados = dal.listar_paquetes(busqueda="rol")
 
     assert len(resultados) == 1
-    assert resultados[0]["nombre_destinatario"] == "Carolina Silva"
+    assert resultados[0]["nombre_destinatario"] == "Carolina"
 
 
-def test_buscar_paquetes_excluye_entregados_por_defecto(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
+def test_busqueda_por_nombre_de_pyme(dal: DAL) -> None:
+    badtrip = dal.crear_pyme("BADTRIP")
+    nixamala = dal.crear_pyme("NIXAMALA")
+    personal_id = dal.crear_personal("Cajero", "cajero")
+    dal.crear_paquete(date.today(), badtrip, "Cliente1", "A1", "pagado", personal_id)
+    dal.crear_paquete(date.today(), nixamala, "Cliente2", "A2", "pagado", personal_id)
+
+    resultados = dal.listar_paquetes(busqueda="nixa")
+
+    assert len(resultados) == 1
+    assert resultados[0]["nombre_destinatario"] == "Cliente2"
+
+
+def test_busqueda_por_ubicacion(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Cliente1", "A1", "pagado", personal_id)
+    dal.crear_paquete(date.today(), pyme_id, "Cliente2", "B2", "pagado", personal_id)
+
+    resultados = dal.listar_paquetes(busqueda="b2")
+
+    assert len(resultados) == 1
+    assert resultados[0]["ubicacion_bodega"] == "B2"
+
+
+def test_busqueda_sin_resultados(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Alejandro", "A1", "pagado", personal_id)
+
+    assert dal.listar_paquetes(busqueda="Zzz") == []
+
+
+def test_busqueda_combina_con_filtro_estado(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Alejandro Activo", "A1", "pagado", personal_id)
     dal.crear_paquete(
-        date.today(),
-        pyme_id,
-        "Alejandro Jara",
-        "A1",
-        "pagado",
-        personal_id,
+        date.today(), pyme_id, "Alejandro Entregado", "A2", "pagado", personal_id,
+        estado="entregado", fecha_entrega=date.today(),
+    )
+
+    activos = dal.listar_paquetes(busqueda="alejandro", estado="activo")
+    todos = dal.listar_paquetes(busqueda="alejandro")
+
+    assert len(activos) == 1
+    assert activos[0]["nombre_destinatario"] == "Alejandro Activo"
+    assert len(todos) == 2
+
+
+def test_listar_sin_busqueda_devuelve_todos(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Cliente1", "A1", "pagado", personal_id)
+    dal.crear_paquete(date.today(), pyme_id, "Cliente2", "B2", "pagado", personal_id)
+
+    assert len(dal.listar_paquetes()) == 2
+
+
+def test_listar_filtra_por_estado_pago(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Pago1", "A1", "pagado", personal_id)
+    dal.crear_paquete(date.today(), pyme_id, "Cobrar1", "A2", "por_cobrar", personal_id)
+    dal.crear_paquete(date.today(), pyme_id, "Cobrar2", "A3", "por_cobrar", personal_id)
+
+    por_cobrar = dal.listar_paquetes(estado_pago="por_cobrar")
+
+    assert len(por_cobrar) == 2
+    assert all(p["estado_pago"] == "por_cobrar" for p in por_cobrar)
+
+
+def test_resultado_incluye_nombre_pyme_resuelto(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    dal.crear_paquete(date.today(), pyme_id, "Cliente", "A1", "pagado", personal_id)
+
+    paquete = dal.listar_paquetes()[0]
+
+    assert paquete["nombre_pyme"] == "BADTRIP"
+
+
+# ── Filtro por rango de fecha de entrega ─────────────────────────────────────
+
+from datetime import date as _date  # alias para evitar shadowing
+
+
+def _entregado(dal: DAL, pyme_id: int, personal_id: int, destinatario: str, fecha_entrega: _date) -> int:
+    pid = dal.crear_paquete(
+        _date(2026, 1, 1), pyme_id, destinatario, "A1", "pagado", personal_id,
+    )
+    dal.actualizar_paquete(pid, {"estado": "entregado", "fecha_entrega": fecha_entrega})
+    return pid
+
+
+def test_filtro_fecha_entrega_rango(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    _entregado(dal, pyme_id, personal_id, "Mayo15", _date(2026, 5, 15))
+    _entregado(dal, pyme_id, personal_id, "Junio1", _date(2026, 6, 1))
+    _entregado(dal, pyme_id, personal_id, "Julio10", _date(2026, 7, 10))
+
+    resultados = dal.listar_paquetes(
+        fecha_entrega_desde=_date(2026, 6, 1),
+        fecha_entrega_hasta=_date(2026, 6, 30),
+    )
+
+    assert len(resultados) == 1
+    assert resultados[0]["nombre_destinatario"] == "Junio1"
+
+
+def test_filtro_fecha_entrega_incluye_los_bordes(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    _entregado(dal, pyme_id, personal_id, "Inicio", _date(2026, 6, 1))
+    _entregado(dal, pyme_id, personal_id, "Fin", _date(2026, 6, 30))
+
+    resultados = dal.listar_paquetes(
+        fecha_entrega_desde=_date(2026, 6, 1),
+        fecha_entrega_hasta=_date(2026, 6, 30),
+    )
+
+    assert len(resultados) == 2
+
+
+def test_filtro_fecha_entrega_ordena_por_fecha_desc(dal: DAL) -> None:
+    pyme_id, personal_id = _setup(dal)
+    _entregado(dal, pyme_id, personal_id, "Viejo", _date(2026, 5, 1))
+    _entregado(dal, pyme_id, personal_id, "Reciente", _date(2026, 6, 1))
+
+    resultados = dal.listar_paquetes(
         estado="entregado",
-        fecha_entrega=date.today(),
+        fecha_entrega_desde=_date(2026, 1, 1),
+        fecha_entrega_hasta=_date(2026, 12, 31),
     )
 
-    activos = dal.buscar_paquetes_por_nombre("Alejandro")
-    todos = dal.buscar_paquetes_por_nombre("Alejandro", solo_activos=False)
-
-    assert activos == []
-    assert len(todos) == 1
-
-
-def test_buscar_paquetes_sin_resultados(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    dal.crear_paquete(
-        date.today(), pyme_id, "Alejandro", "A1", "pagado", personal_id
-    )
-
-    assert dal.buscar_paquetes_por_nombre("Zzz") == []
-
-
-def test_demorados_no_demorado_borde_inferior(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    hoy = date.today()
-    dal.crear_paquete(
-        hoy - timedelta(days=6), pyme_id, "Alguien", "A1", "pagado", personal_id
-    )
-
-    assert dal.listar_paquetes_demorados(hoy) == []
-
-
-def test_demorados_borde_demorado_dia_8(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    hoy = date.today()
-    dal.crear_paquete(
-        hoy - timedelta(days=8), pyme_id, "Alguien", "A1", "pagado", personal_id
-    )
-
-    resultados = dal.listar_paquetes_demorados(hoy)
-
-    assert len(resultados) == 1
-    assert resultados[0]["nivel"] == "Demorado"
-    assert resultados[0]["dias_en_bodega"] == 8
-
-
-def test_demorados_borde_demorado_dia_14(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    hoy = date.today()
-    dal.crear_paquete(
-        hoy - timedelta(days=14), pyme_id, "Alguien", "A1", "pagado", personal_id
-    )
-
-    resultados = dal.listar_paquetes_demorados(hoy)
-
-    assert len(resultados) == 1
-    assert resultados[0]["nivel"] == "Demorado"
-
-
-def test_demorados_critico_dia_15(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    hoy = date.today()
-    dal.crear_paquete(
-        hoy - timedelta(days=15), pyme_id, "Alguien", "A1", "pagado", personal_id
-    )
-
-    resultados = dal.listar_paquetes_demorados(hoy)
-
-    assert len(resultados) == 1
-    assert resultados[0]["nivel"] == "Crítico"
-
-
-def test_demorados_orden_descendente_por_dias(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    hoy = date.today()
-    dal.crear_paquete(
-        hoy - timedelta(days=8), pyme_id, "Reciente", "A1", "pagado", personal_id
-    )
-    dal.crear_paquete(
-        hoy - timedelta(days=20), pyme_id, "Antiguo", "A2", "pagado", personal_id
-    )
-    dal.crear_paquete(
-        hoy - timedelta(days=12), pyme_id, "Medio", "A3", "pagado", personal_id
-    )
-
-    resultados = dal.listar_paquetes_demorados(hoy)
-
-    assert [r["nombre_destinatario"] for r in resultados] == ["Antiguo", "Medio", "Reciente"]
-    assert [r["dias_en_bodega"] for r in resultados] == [20, 12, 8]
-
-
-def test_demorados_excluye_entregados(dal: DAL) -> None:
-    pyme_id, personal_id = _setup_paquetes_demo(dal)
-    hoy = date.today()
-    dal.crear_paquete(
-        hoy - timedelta(days=20),
-        pyme_id,
-        "Ya entregado",
-        "A1",
-        "pagado",
-        personal_id,
-        estado="entregado",
-        fecha_entrega=hoy,
-    )
-
-    assert dal.listar_paquetes_demorados(hoy) == []
+    assert [p["nombre_destinatario"] for p in resultados] == ["Reciente", "Viejo"]

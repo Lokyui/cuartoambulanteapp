@@ -1,5 +1,8 @@
 from datetime import date
+from pathlib import Path
 from typing import Any
+
+import pandas as pd
 
 from src.db.dal import DAL
 
@@ -28,3 +31,32 @@ class ReportesModule:
         for v in ventas:
             v["pyme_nombre"] = pymes.get(v["pyme_id"], "—")
         return ventas
+
+    def exportar_reporte_mensual(self, anio: int, mes: int, destino: str | Path) -> Path:
+        data = self.reporte_mensual(anio, mes)
+        columnas = ["nombre", *CAMPOS_REPORTE]
+        df = pd.DataFrame(data["filas"], columns=columnas)
+        if not df.empty:
+            fila_total = {"nombre": "TOTAL", **data["totales"]}
+            df = pd.concat([df, pd.DataFrame([fila_total])], ignore_index=True)
+
+        destino = Path(destino)
+        df.to_excel(destino, index=False, sheet_name=f"{anio}-{mes:02d}")
+        return destino
+
+    def exportar_detalle_pyme(
+        self,
+        pyme_id: int,
+        desde: str,
+        hasta: str,
+        destino: str | Path,
+    ) -> Path:
+        data = self.detalle_pyme(pyme_id, desde, hasta)
+        df_detalle = pd.DataFrame(data["detalle"])
+        df_resumen = pd.DataFrame([data["resumen"]])
+
+        destino = Path(destino)
+        with pd.ExcelWriter(destino, engine="openpyxl") as writer:
+            df_detalle.to_excel(writer, index=False, sheet_name="Detalle")
+            df_resumen.to_excel(writer, index=False, sheet_name="Resumen")
+        return destino

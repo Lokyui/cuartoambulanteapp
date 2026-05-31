@@ -101,7 +101,7 @@ class VentasView(QWidget):
             QMessageBox.information(
                 self,
                 "Sin selección",
-                "Seleccioná un producto de la tabla antes de eliminar.",
+                "Selecciona un producto de la tabla antes de eliminar.",
             )
             return
         self.tablaProductos.removeRow(fila)
@@ -171,7 +171,7 @@ class VentasView(QWidget):
     def _guardar_venta(self) -> None:
         pyme_id = self.cmbPyme.currentData()
         if pyme_id is None:
-            QMessageBox.warning(self, "Falta Pyme", "Seleccioná una Pyme antes de guardar.")
+            QMessageBox.warning(self, "Falta Pyme", "Selecciona una Pyme antes de guardar.")
             return
 
         items = self._items_actuales()
@@ -179,12 +179,12 @@ class VentasView(QWidget):
             QMessageBox.warning(
                 self,
                 "Sin productos",
-                "Agregá al menos un producto antes de guardar la venta.",
+                "Agrega al menos un producto antes de guardar la venta.",
             )
             return
 
         if not (self.rbEfectivo.isChecked() or self.rbSumUp.isChecked()):
-            QMessageBox.warning(self, "Falta método", "Seleccioná efectivo o SumUp.")
+            QMessageBox.warning(self, "Falta método", "Selecciona efectivo o SumUp.")
             return
 
         error = self._guardar_venta_validaciones()

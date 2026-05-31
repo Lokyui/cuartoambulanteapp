@@ -88,6 +88,15 @@ QLabel[class="display"] {
     font-weight: bold;
 }
 
+QLabel[class="diff-ok"] {
+    color: #2E7D32;
+    font-weight: bold;
+}
+QLabel[class="diff-bad"] {
+    color: #C62828;
+    font-weight: bold;
+}
+
 
 /* Banner */
 QLabel[class="banner"] {

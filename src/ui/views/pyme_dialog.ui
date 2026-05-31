@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>420</width><height>240</height></rect>
+  </property>
+  <property name="windowTitle"><string>Pyme</string></property>
+  <layout class="QVBoxLayout">
+   <property name="spacing"><number>12</number></property>
+   <property name="leftMargin"><number>20</number></property>
+   <property name="topMargin"><number>20</number></property>
+   <property name="rightMargin"><number>20</number></property>
+   <property name="bottomMargin"><number>20</number></property>
+
+   <item>
+    <widget class="QLabel" name="lblTitulo">
+     <property name="font"><font><pointsize>15</pointsize></font></property>
+     <property name="text"><string>Nueva pyme</string></property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QLabel"><property name="text"><string>Nombre</string></property></widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="lineNombre"/>
+   </item>
+
+   <item>
+    <widget class="QCheckBox" name="chkActiva">
+     <property name="text"><string>Activa</string></property>
+     <property name="checked"><bool>true</bool></property>
+    </widget>
+   </item>
+
+   <item>
+    <spacer>
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+
+   <item>
+    <layout class="QHBoxLayout">
+     <item>
+      <widget class="QPushButton" name="btnCancelar">
+       <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+       <property name="class" stdset="0"><string>btn-secundario</string></property>
+       <property name="text"><string>Cancelar</string></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnGuardar">
+       <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+       <property name="class" stdset="0"><string>btn-primario</string></property>
+       <property name="text"><string>Guardar</string></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

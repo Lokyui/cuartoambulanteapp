@@ -81,13 +81,16 @@ class VentasModule:
 
         La derivación de `articulo`/`valor`/`cantidad` (agregados de cabecera)
         vive en el DAL — esto es solo orquestación de cálculos de negocio.
+        Si la caja del día está cerrada, levanta ValueError antes de tocar la BD.
         """
         items = list(datos["items"])
         metodo = datos["metodo"]
+        fecha = datos.get("fecha", date.today())
+        self._verificar_caja_abierta(fecha)
         totales = self.calcular_totales(items, metodo)
 
         return self.dal.crear_venta(
-            fecha=datos.get("fecha", date.today()),
+            fecha=fecha,
             pyme_id=int(datos["pyme_id"]),
             metodo=metodo.lower(),
             iva=totales["iva"],
@@ -96,3 +99,10 @@ class VentasModule:
             items=items,
             comentario=datos.get("comentario") or None,
         )
+
+    def _verificar_caja_abierta(self, fecha) -> None:
+        caja = self.dal.obtener_caja_diaria(fecha)
+        if caja and caja["cerrada"]:
+            raise ValueError(
+                "La caja del día está cerrada. Reábrela desde Cierre de caja para registrar ventas."
+            )

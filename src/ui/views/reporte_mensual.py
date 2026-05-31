@@ -9,6 +9,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import (
+    QFileDialog,
     QHeaderView,
     QMessageBox,
     QTableWidgetItem,
@@ -49,6 +50,8 @@ class ReporteMensualView(QWidget):
         self.cmbTienda.currentIndexChanged.connect(self._cargar_reporte)
         self.cmbTienda.currentIndexChanged.connect(self._cargar_detalle_dia)
         self.fechaDia.dateChanged.connect(self._cargar_detalle_dia)
+        self.pushButton_5.clicked.connect(self._exportar_excel)
+        self.pushButton_6.clicked.connect(self._cargar_reporte)
 
         hoy = date.today()
         self.comboBox.setCurrentIndex(hoy.month - 1)
@@ -112,6 +115,22 @@ class ReporteMensualView(QWidget):
 
         self._pintar_tarjetas(totales)
         self._pintar_tabla(filas, totales)
+
+    def _exportar_excel(self) -> None:
+        mes = self.comboBox.currentIndex() + 1
+        anio = int(self.comboBox_2.currentText())
+        sugerido = f"reporte_{anio}_{mes:02d}.xlsx"
+        ruta, _ = QFileDialog.getSaveFileName(
+            self, "Exportar reporte mensual", sugerido, "Excel (*.xlsx)"
+        )
+        if not ruta:
+            return
+        try:
+            destino = self.module.exportar_reporte_mensual(anio, mes, ruta)
+        except Exception as exc:
+            QMessageBox.critical(self, "Error", f"No se pudo exportar:\n{exc}")
+            return
+        QMessageBox.information(self, "Exportado", f"Archivo guardado en:\n{destino}")
 
     def _cargar_detalle_dia(self) -> None:
         fecha = self.fechaDia.date().toPyDate()

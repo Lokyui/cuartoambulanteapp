@@ -521,12 +521,18 @@ class DAL:
             return self._fila(row)
 
     def listar_paquetes(
-    self,
-    estado: str | None = None,
-    estado_pago: str | None = None,
-    pyme_remitente_id: int | None = None,
-) -> list[dict[str, Any]]:
-
+        self,
+        estado: str | None = None,
+        estado_pago: str | None = None,
+        pyme_remitente_id: int | None = None,
+        busqueda: str | None = None,
+        fecha_entrega_desde: str | date | None = None,
+        fecha_entrega_hasta: str | date | None = None,
+    ) -> list[dict[str, Any]]:
+        """Lista paquetes con join a pymes. `busqueda` aplica LIKE %?% sobre
+        destinatario, nombre de pyme y ubicación, sin distinguir mayúsculas
+        (COLLATE NOCASE en pymes.nombre + LOWER explícito para los otros).
+        El rango de `fecha_entrega` filtra por DATE() para ignorar la hora."""
         sql = """
             SELECT
                 paquetes.*,
@@ -551,10 +557,33 @@ class DAL:
             where.append("paquetes.pyme_remitente_id = ?")
             params.append(pyme_remitente_id)
 
+        if busqueda:
+            patron = f"%{busqueda.strip().lower()}%"
+            where.append(
+                "("
+                " LOWER(paquetes.nombre_destinatario) LIKE ?"
+                " OR LOWER(COALESCE(pymes.nombre, '')) LIKE ?"
+                " OR LOWER(paquetes.ubicacion_bodega) LIKE ?"
+                ")"
+            )
+            params.extend([patron, patron, patron])
+
+        if fecha_entrega_desde is not None:
+            where.append("DATE(paquetes.fecha_entrega) >= DATE(?)")
+            params.append(_to_fecha(fecha_entrega_desde))
+
+        if fecha_entrega_hasta is not None:
+            where.append("DATE(paquetes.fecha_entrega) <= DATE(?)")
+            params.append(_to_fecha(fecha_entrega_hasta))
+
         if where:
             sql += " WHERE " + " AND ".join(where)
 
-        sql += " ORDER BY paquetes.fecha_llegada DESC, paquetes.id DESC"
+        # Si filtramos por entrega, ordenamos por esa fecha; si no, por llegada.
+        if fecha_entrega_desde is not None or fecha_entrega_hasta is not None:
+            sql += " ORDER BY paquetes.fecha_entrega DESC, paquetes.id DESC"
+        else:
+            sql += " ORDER BY paquetes.fecha_llegada DESC, paquetes.id DESC"
 
         with self.conexion() as conn:
             rows = conn.execute(sql, params).fetchall()

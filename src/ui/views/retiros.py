@@ -23,12 +23,20 @@ class RetirosView(QWidget):
     def __init__(self, module: RetirosModule):
         super().__init__()
         self.module = module
+        self._filtro = "todos"
 
         uic.loadUi(UI_PATH, self)
         self.lblFecha.setText(fecha_legible(date.today()))
 
         self.layout_scroll = self.verticalLayout
         self.pushButton.clicked.connect(self.abrir_formulario_nuevo)
+        self.btnFiltroTodos.clicked.connect(lambda: self._aplicar_filtro("todos"))
+        self.btnFiltroPorCobrar.clicked.connect(lambda: self._aplicar_filtro("por_cobrar"))
+        self.txtBuscar.textChanged.connect(self.actualizar_vista)
+        self.actualizar_vista()
+
+    def _aplicar_filtro(self, filtro: str) -> None:
+        self._filtro = filtro
         self.actualizar_vista()
 
     def abrir_formulario_nuevo(self):
@@ -37,8 +45,30 @@ class RetirosView(QWidget):
             self.actualizar_vista()
             QMessageBox.information(self, "Éxito", "El paquete ha sido registrado correctamente.")
 
+    def abrir_formulario_edicion(self, paquete_id: int):
+        paquete = self.module.obtener_paquete(paquete_id)
+        if not paquete:
+            QMessageBox.warning(self, "No encontrado", "El paquete ya no existe.")
+            self.actualizar_vista()
+            return
+        dialogo = RegistroRetiroDialog(self.module, self, paquete=paquete)
+        if dialogo.exec_():
+            self.actualizar_vista()
+            QMessageBox.information(self, "Éxito", "Paquete actualizado correctamente.")
+
     def actualizar_vista(self):
-        paquetes = self.module.listar_todos()
+        # HU3: solo paquetes activos en esta vista; los entregados van al historial.
+        texto = self.txtBuscar.text().strip()
+        if texto:
+            paquetes = self.module.buscar_paquetes(
+                texto,
+                solo_activos=True,
+                solo_por_cobrar=(self._filtro == "por_cobrar"),
+            )
+        elif self._filtro == "por_cobrar":
+            paquetes = self.module.listar_por_cobrar()
+        else:
+            paquetes = self.module.listar_pendientes()
 
         while self.layout_scroll.count():
             item = self.layout_scroll.takeAt(0)
@@ -83,19 +113,15 @@ class RetirosView(QWidget):
 
         btn_editar = QPushButton("Editar pedido")
         btn_editar.setProperty("class", "btn-secundario")
+        btn_editar.clicked.connect(
+            lambda _, pid=paquete["id"]: self.abrir_formulario_edicion(pid)
+        )
 
-        btn_entregar = QPushButton()
-        estado = paquete.get("estado", "activo")
-        if estado == "entregado":
-            btn_entregar.setText("Entregado")
-            btn_entregar.setEnabled(False)
-            btn_entregar.setProperty("class", "btn-entregado")
-        else:
-            btn_entregar.setText("Marcar Entregado")
-            btn_entregar.setProperty("class", "btn-secundario")
-            btn_entregar.clicked.connect(
-                lambda _, paquete_id=paquete["id"]: self.marcar_entregado(paquete_id)
-            )
+        btn_entregar = QPushButton("Marcar Entregado")
+        btn_entregar.setProperty("class", "btn-secundario")
+        btn_entregar.clicked.connect(
+            lambda _, paquete_id=paquete["id"]: self.marcar_entregado(paquete_id)
+        )
 
         layout_botones.addWidget(btn_editar)
         layout_botones.addWidget(btn_entregar)
@@ -108,6 +134,17 @@ class RetirosView(QWidget):
         return frame
 
     def marcar_entregado(self, paquete_id):
+        paquete = self.module.obtener_paquete(paquete_id)
+        nombre = paquete["nombre_destinatario"] if paquete else "este paquete"
+        confirma = QMessageBox.question(
+            self,
+            "Confirmar entrega",
+            f"¿Marcar como entregado el paquete de {nombre}?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No,
+        )
+        if confirma != QMessageBox.Yes:
+            return
         try:
             self.module.marcar_entregado(paquete_id)
             self.actualizar_vista()
