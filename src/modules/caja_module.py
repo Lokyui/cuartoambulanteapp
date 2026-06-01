@@ -10,8 +10,8 @@ class CajaModule:
     def __init__(self, dal: DAL):
         self.dal = dal
 
-    def listar_pymes(self) -> list[dict]:
-        return self.dal.listar_pymes(solo_activas=True)
+    def listar_pymes(self, solo_activas: bool = True) -> list[dict]:
+        return self.dal.listar_pymes(solo_activas=solo_activas)
 
     def calcular_cierre_dia(self, fecha: date, efectivo_real: int) -> dict:
         ventas = self.dal.listar_ventas(fecha=fecha)

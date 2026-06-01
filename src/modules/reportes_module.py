@@ -13,8 +13,8 @@ class ReportesModule:
     def __init__(self, dal: DAL):
         self.dal = dal
 
-    def listar_pymes(self) -> list[dict[str, Any]]:
-        return self.dal.listar_pymes(solo_activas=True)
+    def listar_pymes(self, solo_activas: bool = True) -> list[dict[str, Any]]:
+        return self.dal.listar_pymes(solo_activas=solo_activas)
 
     def detalle_pyme(self, pyme_id: int, desde: str, hasta: str) -> dict[str, Any]:
         return self.dal.obtener_detalle_reporte_pyme(pyme_id, desde, hasta)

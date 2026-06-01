@@ -10,7 +10,9 @@ class CatalogosModule:
         self.dal = dal
 
     def listar_pymes(self) -> list[dict[str, Any]]:
-        return self.dal.listar_pymes(solo_activas=False)
+        # En configuración mostramos por id (orden de creación), no alfabético.
+        pymes = self.dal.listar_pymes(solo_activas=False)
+        return sorted(pymes, key=lambda p: p["id"])
 
     def crear_pyme(self, nombre: str, activa: bool) -> int:
         nombre = nombre.strip()
@@ -29,7 +31,8 @@ class CatalogosModule:
         return self.dal.eliminar_pyme(pyme_id)
 
     def listar_personal(self) -> list[dict[str, Any]]:
-        return self.dal.listar_personal(solo_activos=False)
+        personal = self.dal.listar_personal(solo_activos=False)
+        return sorted(personal, key=lambda p: p["id"])
 
     def crear_personal(self, nombre_display: str, rol: str, activo: bool) -> int:
         nombre_display = nombre_display.strip()

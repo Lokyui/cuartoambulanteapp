@@ -38,7 +38,8 @@ class HistorialRetirosView(QWidget):
         self.cmbTienda.blockSignals(True)
         self.cmbTienda.clear()
         self.cmbTienda.addItem(OPCION_TODAS, None)
-        for p in self.module.listar_pymes():
+        # solo_activas=False: el historial puede tener entregas de pymes ya desactivadas.
+        for p in self.module.listar_pymes(solo_activas=False):
             self.cmbTienda.addItem(p["nombre"], p["id"])
         self.cmbTienda.blockSignals(False)
 

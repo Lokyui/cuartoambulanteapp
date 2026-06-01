@@ -30,7 +30,6 @@ class ReportePymeView(QWidget):
         self.dateEdit.dateChanged.connect(self.actualizar_reporte)
         self.dateEdit_2.dateChanged.connect(self.actualizar_reporte)
         self.pushButton_5.clicked.connect(self._exportar_excel)
-        self.pushButton_6.clicked.connect(self.actualizar_reporte)
 
         self.actualizar_reporte()
 
@@ -47,7 +46,7 @@ class ReportePymeView(QWidget):
     def _cargar_pymes(self) -> None:
         self.comboBox.blockSignals(True)
         self.comboBox.clear()
-        for p in self.module.listar_pymes():
+        for p in self.module.listar_pymes(solo_activas=False):
             self.comboBox.addItem(p["nombre"], p["id"])
         self.comboBox.blockSignals(False)
 

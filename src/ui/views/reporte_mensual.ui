@@ -323,14 +323,6 @@
        <property name="text"><string>Exportar Excel</string></property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="minimumSize"><size><width>180</width><height>40</height></size></property>
-       <property name="maximumSize"><size><width>220</width><height>40</height></size></property>
-       <property name="class" stdset="0"><string>btn-info</string></property>
-       <property name="text"><string>Generar reporte</string></property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>

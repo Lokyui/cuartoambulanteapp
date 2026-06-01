@@ -1,8 +1,17 @@
 from datetime import date
 
-from PyQt5.QtCore import QPropertyAnimation, QTimer, Qt, pyqtProperty
+from PyQt5.QtCore import QLocale, QPropertyAnimation, QTimer, Qt, pyqtProperty
 from PyQt5.QtGui import QColor, QPainter
-from PyQt5.QtWidgets import QAbstractButton, QAbstractSpinBox, QDateEdit, QSpinBox
+from PyQt5.QtWidgets import (
+    QAbstractButton,
+    QAbstractSpinBox,
+    QDateEdit,
+    QMessageBox,
+    QSpinBox,
+    QWidget,
+)
+
+LOCALE_CLP = QLocale(QLocale.Spanish, QLocale.Chile)
 
 DIAS_ES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 MESES_ES = [
@@ -19,6 +28,19 @@ def formatear_clp(valor) -> str:
 
 def fecha_legible(fecha: date) -> str:
     return f"{DIAS_ES[fecha.weekday()]} {fecha.day} de {MESES_ES[fecha.month]}, {fecha.year}"
+
+
+def pregunta_si_no(parent: QWidget | None, titulo: str, mensaje: str) -> bool:
+    """Diálogo de confirmación con botones 'Sí' / 'No' (no 'Yes/No' por defecto de Qt)."""
+    box = QMessageBox(parent)
+    box.setIcon(QMessageBox.Question)
+    box.setWindowTitle(titulo)
+    box.setText(mensaje)
+    btn_si = box.addButton("Sí", QMessageBox.YesRole)
+    btn_no = box.addButton("No", QMessageBox.NoRole)
+    box.setDefaultButton(btn_no)
+    box.exec_()
+    return box.clickedButton() is btn_si
 
 
 class FechaEdit(QDateEdit):
@@ -49,6 +71,7 @@ class MontoSpinBox(_SpinBoxSeleccionable):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setLocale(LOCALE_CLP)
         self.setMinimum(0)
         self.setMaximum(9_999_999)
         self.setPrefix("$ ")

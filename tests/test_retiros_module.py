@@ -21,12 +21,19 @@ def contexto(dal: DAL) -> dict:
     }
 
 
+_UBICACIONES = [f"{l}{n}" for l in "ABC" for n in range(1, 4)]
+_contador_ubicacion = 0
+
+
 def _datos(ctx: dict, destinatario: str = "Cliente", **overrides) -> dict:
+    global _contador_ubicacion
+    ubicacion = _UBICACIONES[_contador_ubicacion % len(_UBICACIONES)]
+    _contador_ubicacion += 1
     base = {
         "pyme_id": ctx["pyme_id"],
         "fecha_llegada": date.today(),
         "destinatario": destinatario,
-        "ubicacion": "A1",
+        "ubicacion": ubicacion,
         "estado_pago": "pagado",
         "recibido_por": ctx["personal_id"],
         "descripcion": None,
@@ -44,6 +51,32 @@ def test_registrar_ingreso_crea_paquete_activo(modulo: RetirosModule, contexto: 
     assert paquete is not None
     assert paquete["estado"] == "activo"
     assert paquete["nombre_destinatario"] == "Cliente"
+
+
+def test_registrar_ingreso_rechaza_ubicacion_ocupada(modulo: RetirosModule, contexto: dict) -> None:
+    modulo.registrar_ingreso(_datos(contexto, destinatario="Primero", ubicacion="A1"))
+
+    with pytest.raises(ValueError, match="ya está ocupada"):
+        modulo.registrar_ingreso(_datos(contexto, destinatario="Segundo", ubicacion="A1"))
+
+
+def test_ubicacion_se_libera_cuando_se_entrega(modulo: RetirosModule, contexto: dict) -> None:
+    pid = modulo.registrar_ingreso(_datos(contexto, destinatario="Primero", ubicacion="A1"))
+    modulo.marcar_entregado(pid)
+
+    nuevo = modulo.registrar_ingreso(_datos(contexto, destinatario="Segundo", ubicacion="A1"))
+    assert modulo.obtener_paquete(nuevo) is not None
+
+
+def test_actualizar_paquete_a_ubicacion_ocupada_falla(modulo: RetirosModule, contexto: dict) -> None:
+    pid1 = modulo.registrar_ingreso(_datos(contexto, destinatario="Primero", ubicacion="A1"))
+    pid2 = modulo.registrar_ingreso(_datos(contexto, destinatario="Segundo", ubicacion="A2"))
+
+    with pytest.raises(ValueError, match="ya está ocupada"):
+        modulo.actualizar_paquete(pid2, {"ubicacion": "A1"})
+
+    # control: el paquete original puede cambiar a una libre.
+    assert modulo.actualizar_paquete(pid1, {"ubicacion": "B1"}) is True
 
 
 # ── marcar_entregado ─────────────────────────────────────────────────────────

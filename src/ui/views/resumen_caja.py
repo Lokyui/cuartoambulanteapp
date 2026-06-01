@@ -9,7 +9,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QFileDialog, QHeaderView, QMessageBox, QTableWidgetItem, QWidget
 
 from src.modules.caja_module import CajaModule
-from src.ui.utils import fecha_legible, formatear_clp
+from src.ui.utils import fecha_legible, formatear_clp, pregunta_si_no
 
 UI_PATH = str(Path(__file__).parent / "resumen_caja.ui")
 OPCION_TODAS = "Todas las tiendas"
@@ -36,7 +36,7 @@ class ResumenCajaView(QWidget):
         self.cmbTienda.blockSignals(True)
         self.cmbTienda.clear()
         self.cmbTienda.addItem(OPCION_TODAS, None)
-        for p in self.module.listar_pymes():
+        for p in self.module.listar_pymes(solo_activas=False):
             self.cmbTienda.addItem(p["nombre"], p["id"])
         self.cmbTienda.blockSignals(False)
 
@@ -153,14 +153,11 @@ class ResumenCajaView(QWidget):
 
     def _reabrir_caja(self) -> None:
         fecha = self.fechaEdit.date().toPyDate()
-        confirma = QMessageBox.question(
+        if not pregunta_si_no(
             self,
             "Reabrir caja",
             f"¿Reabrir la caja del {fecha.isoformat()}? Permitirá registrar nuevas ventas en ese día.",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No,
-        )
-        if confirma != QMessageBox.Yes:
+        ):
             return
         try:
             self.module.reabrir_dia(fecha)

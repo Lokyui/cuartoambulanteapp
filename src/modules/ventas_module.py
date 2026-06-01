@@ -23,7 +23,9 @@ class VentasModule:
 
     def resumen_del_dia(self, fecha: date) -> dict[str, Any]:
         ventas = self.dal.listar_ventas(fecha=fecha)
-        pymes = {p["id"]: p["nombre"] for p in self.dal.listar_pymes()}
+        # Incluye inactivas: los movimientos históricos deben mostrar el nombre real,
+        # no aparecer como "—" si la pyme fue desactivada después.
+        pymes = {p["id"]: p["nombre"] for p in self.dal.listar_pymes(solo_activas=False)}
 
         por_tienda: dict[str, int] = {}
         for v in ventas:

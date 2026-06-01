@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import (
 
 from src.ui.views.registro_retiro import RegistroRetiroDialog
 from src.modules.retiros_module import RetirosModule
-from src.ui.utils import fecha_legible
+from src.ui.utils import fecha_legible, pregunta_si_no
 
 UI_PATH = str(Path(__file__).parent / "retiros.ui")
 
@@ -78,13 +78,14 @@ class RetirosView(QWidget):
 
         for paquete in paquetes:
             self.layout_scroll.addWidget(self._crear_card_paquete(paquete))
+        self.layout_scroll.addStretch()
 
     def _crear_card_paquete(self, paquete):
         from PyQt5.QtWidgets import QPushButton, QHBoxLayout
 
         frame = QFrame()
         frame.setProperty("class", "frame-paquete")
-        frame.setMinimumHeight(140)
+        frame.setFixedHeight(150)
 
         layout_principal = QVBoxLayout(frame)
         layout_principal.setContentsMargins(15, 12, 15, 12)
@@ -136,14 +137,7 @@ class RetirosView(QWidget):
     def marcar_entregado(self, paquete_id):
         paquete = self.module.obtener_paquete(paquete_id)
         nombre = paquete["nombre_destinatario"] if paquete else "este paquete"
-        confirma = QMessageBox.question(
-            self,
-            "Confirmar entrega",
-            f"¿Marcar como entregado el paquete de {nombre}?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No,
-        )
-        if confirma != QMessageBox.Yes:
+        if not pregunta_si_no(self, "Confirmar entrega", f"¿Marcar como entregado el paquete de {nombre}?"):
             return
         try:
             self.module.marcar_entregado(paquete_id)

@@ -51,7 +51,6 @@ class ReporteMensualView(QWidget):
         self.cmbTienda.currentIndexChanged.connect(self._cargar_detalle_dia)
         self.fechaDia.dateChanged.connect(self._cargar_detalle_dia)
         self.pushButton_5.clicked.connect(self._exportar_excel)
-        self.pushButton_6.clicked.connect(self._cargar_reporte)
 
         hoy = date.today()
         self.comboBox.setCurrentIndex(hoy.month - 1)
@@ -91,7 +90,7 @@ class ReporteMensualView(QWidget):
 
         self.cmbTienda.clear()
         self.cmbTienda.addItem(OPCION_TODAS, None)
-        for p in self.module.listar_pymes():
+        for p in self.module.listar_pymes(solo_activas=False):
             self.cmbTienda.addItem(p["nombre"], p["id"])
 
     def _filtrar_filas(self, filas: list[dict[str, Any]]) -> list[dict[str, Any]]:

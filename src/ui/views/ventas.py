@@ -140,13 +140,14 @@ class VentasView(QWidget):
             total = iva = 0
             comision = None
 
+        neto = total - iva - (comision or 0)
         cant_productos = sum(int(i["cantidad"]) for i in items)
         productos_txt = f"{cant_productos} producto{'s' if cant_productos != 1 else ''}"
 
         self._set_resumen_celda(0, 1, pyme_nombre)
         self._set_resumen_celda(1, 1, metodo_label)
         self._set_resumen_celda(2, 1, productos_txt)
-        self._set_resumen_celda(3, 1, formatear_clp(total))
+        self._set_resumen_celda(3, 1, formatear_clp(neto))
         self._set_resumen_celda(4, 1, formatear_clp(iva))
         self._set_resumen_celda(5, 1, formatear_clp(comision) if comision is not None else "$0")
 

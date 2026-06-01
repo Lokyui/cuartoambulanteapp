@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import (
 )
 
 from src.modules.catalogos_module import CatalogosModule
-from src.ui.utils import ToggleSwitch
+from src.ui.utils import ToggleSwitch, pregunta_si_no
 from src.ui.views.personal_dialog import PersonalDialog
 from src.ui.views.pyme_dialog import PymeDialog
 
@@ -142,14 +142,7 @@ class ConfiguracionView(QWidget):
         if not pyme:
             self.recargar()
             return
-        confirma = QMessageBox.question(
-            self,
-            "Eliminar pyme",
-            f"¿Eliminar la pyme \"{pyme['nombre']}\"?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No,
-        )
-        if confirma != QMessageBox.Yes:
+        if not pregunta_si_no(self, "Eliminar pyme", f"¿Eliminar la pyme \"{pyme['nombre']}\"?"):
             return
         try:
             self.module.eliminar_pyme(pyme_id)
@@ -187,14 +180,7 @@ class ConfiguracionView(QWidget):
         if not personal:
             self.recargar()
             return
-        confirma = QMessageBox.question(
-            self,
-            "Eliminar personal",
-            f"¿Eliminar a \"{personal['nombre_display']}\"?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No,
-        )
-        if confirma != QMessageBox.Yes:
+        if not pregunta_si_no(self, "Eliminar personal", f"¿Eliminar a \"{personal['nombre_display']}\"?"):
             return
         try:
             self.module.eliminar_personal(pid)
