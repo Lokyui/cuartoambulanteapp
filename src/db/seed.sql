@@ -27,22 +27,22 @@ INSERT INTO personal (nombre_display, rol, activo) VALUES
 -- Comisión SumUp: int(total * 0.0175). 2000 -> 35.
 -- Ventas (cabecera)
 INSERT INTO ventas (fecha, pyme_id, articulo, valor, cantidad, metodo, iva, comision_sumup, total, comentario) VALUES
-('2026-04-27', 1, 'Producto A', 2000, 1, 'efectivo', 319, NULL, 2000, 'Venta demo'),
-('2026-04-27', 2, 'Producto B', 1000, 2, 'sumup', 319, 35, 2000, 'Venta demo');
+(date('now','localtime'), 1, 'Sticker holográfico', 2000, 1, 'efectivo', 319, NULL, 2000, 'Producto exclusivo'),
+(date('now','localtime'), 2, 'Llavero acrílico', 1000, 2, 'sumup', 319, 35, 2000, 'Edición limitada');
 
 -- Items de ventas
 INSERT INTO venta_items (venta_id, producto, precio, cantidad, subtotal) VALUES
-(1, 'Producto A', 2000, 1, 2000),
-(2, 'Producto B', 1000, 2, 2000);
+(1, 'Sticker holográfico', 2000, 1, 2000),
+(2, 'Llavero acrílico', 1000, 2, 2000);
 
 -- Caja diaria
--- total_iva = SUM(iva) de ventas del día = 319 + 319 = 638
--- comision_sumup_total = SUM(comision_sumup) = 35 (solo la venta sumup)
--- caja_final_esperada = caja_inicial + total_efectivo = 5000 + 2000 = 7000
-INSERT INTO caja_diaria (fecha, caja_inicial, total_efectivo, total_sumup, total_iva, comision_sumup_total, caja_final_esperada, caja_final_real, diferencia, cerrada, comentario) VALUES
-('2026-04-27', 5000, 2000, 2000, 638, 35, 7000, 7000, 0, 1, 'Cierre demo');
+-- El cierre de hoy se inserta al final de seed_ventas.sql (que carga DESPUÉS de
+-- este archivo), derivado por SQL de TODAS las ventas del día. Así los totales
+-- siempre cuadran con las ventas reales, sin números hardcodeados.
 
 -- Paquetes
 INSERT INTO paquetes (fecha_llegada, pyme_remitente_id, nombre_destinatario, ubicacion_bodega, estado_pago, recibido_por, entregado_por, fecha_entrega, estado, descripcion) VALUES
-('2026-04-20', 1, 'Alejandro Jara', 'A1', 'pagado', 2, NULL, NULL, 'activo', 'Demo'),
-('2026-04-10', 2, 'Carolina Silva', 'B3', 'por_cobrar', 3, 'Juan Perez', '2026-04-15T10:30:00', 'entregado', 'Demo');
+(date('now','localtime','-7 day'), 1, 'Alejandro Jara', 'A1', 'pagado', 2, NULL, NULL, 'activo', 'Encomienda de mercadería'),
+(date('now','localtime','-17 day'), 2, 'Carolina Silva', 'B3', 'por_cobrar', 3, 'Juan Perez', datetime('now','localtime','-12 day'), 'entregado', 'Encomienda de mercadería'),
+(date('now','localtime','-3 day'), 4, 'Martín Rojas', 'A2', 'pagado', 2, NULL, NULL, 'activo', 'Encomienda de mercadería'),
+(date('now','localtime','-1 day'), 5, 'Valentina Soto', 'C1', 'por_cobrar', 3, NULL, NULL, 'activo', 'Encomienda de mercadería');
