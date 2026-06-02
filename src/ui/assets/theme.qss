@@ -28,39 +28,39 @@ QFrame#sidebar QPushButton:pressed {
 }
 
 
-/* Botones por dynamic property "class" */
-QPushButton[class="btn-primario"] {
-    background-color: #C2EDB3;
-    border: 1px solid black;
-    border-radius: 4px;
-}
-QPushButton[class="btn-primario"]:hover  { background-color: #B0E09F; }
-QPushButton[class="btn-primario"]:pressed { background-color: #9DCB8C; padding-top: 2px; }
-
-QPushButton[class="btn-info"] {
-    background-color: #B3C7ED;
-    border: 1px solid black;
-    border-radius: 4px;
-}
-QPushButton[class="btn-info"]:hover  { background-color: #A0B6E0; }
-QPushButton[class="btn-info"]:pressed { background-color: #8DA3CC; padding-top: 2px; }
-
-QPushButton[class="btn-secundario"] {
-    background-color: #F6F6F6;
-    border: 1px solid black;
-    border-radius: 4px;
-}
-QPushButton[class="btn-secundario"]:hover  { background-color: #EAEAEA; }
-QPushButton[class="btn-secundario"]:pressed { background-color: #CFCFCF; padding-top: 2px; }
-
+/* Botones por dynamic property "class"
+   La forma (border, radio, padding, press) es la misma para todos.
+   Cada clase solo define su color. */
+QPushButton[class="btn-primario"],
+QPushButton[class="btn-info"],
+QPushButton[class="btn-secundario"],
 QPushButton[class="btn-accion-dashboard"] {
-    background-color: #F6F6F6;
     border: 1px solid black;
     border-radius: 4px;
     padding: 4px 14px;
 }
-QPushButton[class="btn-accion-dashboard"]:hover  { background-color: #EAEAEA; }
-QPushButton[class="btn-accion-dashboard"]:pressed { background-color: #CFCFCF; padding-top: 2px; }
+QPushButton[class="btn-primario"]:pressed,
+QPushButton[class="btn-info"]:pressed,
+QPushButton[class="btn-secundario"]:pressed,
+QPushButton[class="btn-accion-dashboard"]:pressed {
+    padding-top: 2px;
+}
+
+QPushButton[class="btn-primario"]         { background-color: #C2EDB3; }
+QPushButton[class="btn-primario"]:hover   { background-color: #B0E09F; }
+QPushButton[class="btn-primario"]:pressed { background-color: #9DCB8C; }
+
+QPushButton[class="btn-info"]         { background-color: #B3C7ED; }
+QPushButton[class="btn-info"]:hover   { background-color: #A0B6E0; }
+QPushButton[class="btn-info"]:pressed { background-color: #8DA3CC; }
+
+QPushButton[class="btn-secundario"]         { background-color: #F6F6F6; }
+QPushButton[class="btn-secundario"]:hover   { background-color: #EAEAEA; }
+QPushButton[class="btn-secundario"]:pressed { background-color: #CFCFCF; }
+
+QPushButton[class="btn-accion-dashboard"]         { background-color: #F6F6F6; }
+QPushButton[class="btn-accion-dashboard"]:hover   { background-color: #EAEAEA; }
+QPushButton[class="btn-accion-dashboard"]:pressed { background-color: #CFCFCF; }
 
 
 /* Tarjetas de totales */
@@ -85,6 +85,15 @@ QGroupBox[class^="tarjeta-"] QPlainTextEdit {
 
 QLabel[class="display"] {
     font-size: 16pt;
+    font-weight: bold;
+}
+
+QLabel[class="diff-ok"] {
+    color: #2E7D32;
+    font-weight: bold;
+}
+QLabel[class="diff-bad"] {
+    color: #C62828;
     font-weight: bold;
 }
 
@@ -283,10 +292,4 @@ QLabel[class="paquete-ubicacion"] {
 }
 QLabel[class="paquete-texto"] {
     font-size: 14px;
-}
-QPushButton[class="btn-entregado"] {
-    background-color: #D9F5DD;
-    border: 1px solid #5A9E63;
-    border-radius: 4px;
-    padding: 6px 10px;
 }

@@ -14,6 +14,7 @@ class FakeDAL:
     def __init__(self) -> None:
         self.llamadas: list[dict[str, Any]] = []
         self.proximo_id = 1
+        self.caja_por_fecha: dict[Any, dict[str, Any]] = {}
 
     def crear_venta(self, *args: Any, **kwargs: Any) -> int:
         # Soporta tanto la firma posicional (fecha, pyme_id, metodo) como kwargs
@@ -25,6 +26,9 @@ class FakeDAL:
         actual = self.proximo_id
         self.proximo_id += 1
         return actual
+
+    def obtener_caja_diaria(self, fecha: Any) -> dict[str, Any] | None:
+        return self.caja_por_fecha.get(fecha)
 
 
 @pytest.fixture
@@ -158,3 +162,51 @@ def test_procesar_normaliza_metodo_a_minusculas(
         "items": [{"producto": "X", "precio": 1000, "cantidad": 1}],
     })
     assert fake_dal.llamadas[0]["metodo"] == "sumup"
+
+
+# ── Bloqueo de ventas con caja cerrada (HU4) ────────────────────────────────
+
+def test_procesar_falla_si_caja_del_dia_esta_cerrada(
+    modulo: VentasModule, fake_dal: FakeDAL
+) -> None:
+    fecha = date(2026, 5, 12)
+    fake_dal.caja_por_fecha[fecha] = {"cerrada": 1}
+
+    with pytest.raises(ValueError, match="caja del día está cerrada"):
+        modulo.procesar_nueva_venta({
+            "pyme_id": 1,
+            "fecha": fecha,
+            "metodo": "efectivo",
+            "items": [{"producto": "X", "precio": 1000, "cantidad": 1}],
+        })
+
+    assert fake_dal.llamadas == []
+
+
+def test_procesar_permite_venta_si_caja_existe_pero_no_esta_cerrada(
+    modulo: VentasModule, fake_dal: FakeDAL
+) -> None:
+    fecha = date(2026, 5, 12)
+    fake_dal.caja_por_fecha[fecha] = {"cerrada": 0}
+
+    modulo.procesar_nueva_venta({
+        "pyme_id": 1,
+        "fecha": fecha,
+        "metodo": "efectivo",
+        "items": [{"producto": "X", "precio": 1000, "cantidad": 1}],
+    })
+
+    assert len(fake_dal.llamadas) == 1
+
+
+def test_procesar_permite_venta_si_no_existe_caja_del_dia(
+    modulo: VentasModule, fake_dal: FakeDAL
+) -> None:
+    modulo.procesar_nueva_venta({
+        "pyme_id": 1,
+        "fecha": date(2026, 5, 12),
+        "metodo": "efectivo",
+        "items": [{"producto": "X", "precio": 1000, "cantidad": 1}],
+    })
+
+    assert len(fake_dal.llamadas) == 1

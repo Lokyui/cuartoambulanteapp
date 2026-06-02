@@ -100,6 +100,12 @@ VENTAS</string></property>
          <property name="text"><string>Retiros</string></property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="btnHistorialRetiros">
+         <property name="minimumSize"><size><width>0</width><height>40</height></size></property>
+         <property name="text"><string>Historial retiros</string></property>
+        </widget>
+       </item>
 
        <item>
         <spacer>
@@ -126,6 +132,28 @@ VENTAS</string></property>
         <widget class="QPushButton" name="btnReporte">
          <property name="minimumSize"><size><width>0</width><height>40</height></size></property>
          <property name="text"><string>Mensual</string></property>
+        </widget>
+       </item>
+
+       <item>
+        <spacer>
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+         <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>20</width><height>20</height></size></property>
+        </spacer>
+       </item>
+
+       <item>
+        <widget class="QLabel" name="lblSeccionConfig">
+         <property name="font"><font><pointsize>11</pointsize></font></property>
+         <property name="text"><string>CONFIGURACIÓN</string></property>
+         <property name="margin"><number>6</number></property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnConfiguracion">
+         <property name="minimumSize"><size><width>0</width><height>40</height></size></property>
+         <property name="text"><string>Pymes y personal</string></property>
         </widget>
        </item>
 

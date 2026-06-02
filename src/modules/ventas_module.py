@@ -23,7 +23,9 @@ class VentasModule:
 
     def resumen_del_dia(self, fecha: date) -> dict[str, Any]:
         ventas = self.dal.listar_ventas(fecha=fecha)
-        pymes = {p["id"]: p["nombre"] for p in self.dal.listar_pymes()}
+        # Incluye inactivas: los movimientos históricos deben mostrar el nombre real,
+        # no aparecer como "—" si la pyme fue desactivada después.
+        pymes = {p["id"]: p["nombre"] for p in self.dal.listar_pymes(solo_activas=False)}
 
         por_tienda: dict[str, int] = {}
         for v in ventas:
@@ -81,13 +83,16 @@ class VentasModule:
 
         La derivación de `articulo`/`valor`/`cantidad` (agregados de cabecera)
         vive en el DAL — esto es solo orquestación de cálculos de negocio.
+        Si la caja del día está cerrada, levanta ValueError antes de tocar la BD.
         """
         items = list(datos["items"])
         metodo = datos["metodo"]
+        fecha = datos.get("fecha", date.today())
+        self._verificar_caja_abierta(fecha)
         totales = self.calcular_totales(items, metodo)
 
         return self.dal.crear_venta(
-            fecha=datos.get("fecha", date.today()),
+            fecha=fecha,
             pyme_id=int(datos["pyme_id"]),
             metodo=metodo.lower(),
             iva=totales["iva"],
@@ -96,3 +101,10 @@ class VentasModule:
             items=items,
             comentario=datos.get("comentario") or None,
         )
+
+    def _verificar_caja_abierta(self, fecha) -> None:
+        caja = self.dal.obtener_caja_diaria(fecha)
+        if caja and caja["cerrada"]:
+            raise ValueError(
+                "La caja del día está cerrada. Reábrela desde Cierre de caja para registrar ventas."
+            )

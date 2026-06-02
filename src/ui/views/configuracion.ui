@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>952</width><height>720</height></rect>
+  </property>
+  <property name="windowTitle"><string>Configuración</string></property>
+  <layout class="QVBoxLayout" name="layoutRoot">
+   <property name="spacing"><number>18</number></property>
+   <property name="leftMargin"><number>30</number></property>
+   <property name="topMargin"><number>30</number></property>
+   <property name="rightMargin"><number>30</number></property>
+   <property name="bottomMargin"><number>20</number></property>
+
+   <item>
+    <widget class="QLabel" name="lblTitulo">
+     <property name="font"><font><pointsize>17</pointsize></font></property>
+     <property name="text"><string>Configuración</string></property>
+    </widget>
+   </item>
+
+   <item>
+    <widget class="QTabWidget" name="tabs">
+     <property name="currentIndex"><number>0</number></property>
+
+     <widget class="QWidget" name="tabPymes">
+      <attribute name="title"><string>Pymes</string></attribute>
+      <layout class="QVBoxLayout">
+       <property name="spacing"><number>10</number></property>
+       <property name="leftMargin"><number>10</number></property>
+       <property name="topMargin"><number>10</number></property>
+       <property name="rightMargin"><number>10</number></property>
+       <property name="bottomMargin"><number>10</number></property>
+
+       <item>
+        <widget class="QTableWidget" name="tablaPymes">
+         <attribute name="horizontalHeaderStretchLastSection"><bool>false</bool></attribute>
+         <attribute name="verticalHeaderVisible"><bool>false</bool></attribute>
+         <property name="alternatingRowColors"><bool>true</bool></property>
+         <column><property name="text"><string>ID</string></property></column>
+         <column><property name="text"><string>Nombre</string></property></column>
+         <column><property name="text"><string>Estado</string></property></column>
+        </widget>
+       </item>
+
+       <item>
+        <layout class="QHBoxLayout">
+         <property name="spacing"><number>10</number></property>
+         <item>
+          <widget class="QPushButton" name="btnNuevaPyme">
+           <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+           <property name="class" stdset="0"><string>btn-primario</string></property>
+           <property name="text"><string>Agregar</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnEditarPyme">
+           <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+           <property name="class" stdset="0"><string>btn-secundario</string></property>
+           <property name="text"><string>Editar</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnEliminarPyme">
+           <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+           <property name="class" stdset="0"><string>btn-secundario</string></property>
+           <property name="text"><string>Eliminar</string></property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation"><enum>Qt::Horizontal</enum></property>
+           <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+
+     <widget class="QWidget" name="tabPersonal">
+      <attribute name="title"><string>Personal</string></attribute>
+      <layout class="QVBoxLayout">
+       <property name="spacing"><number>10</number></property>
+       <property name="leftMargin"><number>10</number></property>
+       <property name="topMargin"><number>10</number></property>
+       <property name="rightMargin"><number>10</number></property>
+       <property name="bottomMargin"><number>10</number></property>
+
+       <item>
+        <widget class="QTableWidget" name="tablaPersonal">
+         <attribute name="horizontalHeaderStretchLastSection"><bool>false</bool></attribute>
+         <attribute name="verticalHeaderVisible"><bool>false</bool></attribute>
+         <property name="alternatingRowColors"><bool>true</bool></property>
+         <column><property name="text"><string>ID</string></property></column>
+         <column><property name="text"><string>Nombre</string></property></column>
+         <column><property name="text"><string>Rol</string></property></column>
+         <column><property name="text"><string>Estado</string></property></column>
+        </widget>
+       </item>
+
+       <item>
+        <layout class="QHBoxLayout">
+         <property name="spacing"><number>10</number></property>
+         <item>
+          <widget class="QPushButton" name="btnNuevoPersonal">
+           <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+           <property name="class" stdset="0"><string>btn-primario</string></property>
+           <property name="text"><string>Agregar</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnEditarPersonal">
+           <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+           <property name="class" stdset="0"><string>btn-secundario</string></property>
+           <property name="text"><string>Editar</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnEliminarPersonal">
+           <property name="minimumSize"><size><width>140</width><height>36</height></size></property>
+           <property name="class" stdset="0"><string>btn-secundario</string></property>
+           <property name="text"><string>Eliminar</string></property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation"><enum>Qt::Horizontal</enum></property>
+           <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

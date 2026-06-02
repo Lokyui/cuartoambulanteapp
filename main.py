@@ -17,6 +17,7 @@ from src.modules.ventas_module import VentasModule
 from src.modules.retiros_module import RetirosModule
 from src.modules.reportes_module import ReportesModule
 from src.modules.caja_module import CajaModule
+from src.modules.catalogos_module import CatalogosModule
 
 ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
@@ -67,12 +68,14 @@ def main() -> None:
     retiros_mod = RetirosModule(dal)
     reportes_mod = ReportesModule(dal)
     caja_mod = CajaModule(dal)
+    catalogos_mod = CatalogosModule(dal)
 
     ventana = MainWindow(
         ventas_mod=ventas_mod,
         retiros_mod=retiros_mod,
         reportesModule=reportes_mod,
         caja_module=caja_mod,
+        catalogos_module=catalogos_mod,
     )
     ventana.show()
     sys.exit(app.exec_())

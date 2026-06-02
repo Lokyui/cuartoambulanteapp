@@ -5,7 +5,7 @@ from pathlib import Path
 
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QHeaderView, QTableWidgetItem, QWidget
+from PyQt5.QtWidgets import QFileDialog, QHeaderView, QMessageBox, QTableWidgetItem, QWidget
 
 from src.modules.reportes_module import ReportesModule
 from src.ui.utils import formatear_clp
@@ -29,6 +29,7 @@ class ReportePymeView(QWidget):
         self.comboBox.currentIndexChanged.connect(self.actualizar_reporte)
         self.dateEdit.dateChanged.connect(self.actualizar_reporte)
         self.dateEdit_2.dateChanged.connect(self.actualizar_reporte)
+        self.pushButton_5.clicked.connect(self._exportar_excel)
 
         self.actualizar_reporte()
 
@@ -45,7 +46,7 @@ class ReportePymeView(QWidget):
     def _cargar_pymes(self) -> None:
         self.comboBox.blockSignals(True)
         self.comboBox.clear()
-        for p in self.module.listar_pymes():
+        for p in self.module.listar_pymes(solo_activas=False):
             self.comboBox.addItem(p["nombre"], p["id"])
         self.comboBox.blockSignals(False)
 
@@ -79,6 +80,26 @@ class ReportePymeView(QWidget):
             self.tableWidget.setItem(fila, 6, self._item(formatear_clp(v["comision_sumup"])))
             self.tableWidget.setItem(fila, 7, self._item(v["metodo"].upper(), alinear="cen"))
             self.tableWidget.setItem(fila, 8, self._item(v["comentario"] or "", alinear="izq"))
+
+    def _exportar_excel(self) -> None:
+        pyme_id = self.comboBox.currentData()
+        if pyme_id is None:
+            return
+        desde = self.dateEdit.date().toString("yyyy-MM-dd")
+        hasta = self.dateEdit_2.date().toString("yyyy-MM-dd")
+        pyme_nombre = self.comboBox.currentText().replace(" ", "_")
+        sugerido = f"reporte_{pyme_nombre}_{desde}_a_{hasta}.xlsx"
+        ruta, _ = QFileDialog.getSaveFileName(
+            self, "Exportar reporte de pyme", sugerido, "Excel (*.xlsx)"
+        )
+        if not ruta:
+            return
+        try:
+            destino = self.module.exportar_detalle_pyme(pyme_id, desde, hasta, ruta)
+        except Exception as exc:
+            QMessageBox.critical(self, "Error", f"No se pudo exportar:\n{exc}")
+            return
+        QMessageBox.information(self, "Exportado", f"Archivo guardado en:\n{destino}")
 
     @staticmethod
     def _item(texto: str, alinear: str = "der") -> QTableWidgetItem:
